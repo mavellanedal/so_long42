@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checks.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/09 17:47:44 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/10 16:59:59 by mavellan         ###   ########.fr       */
+/*   Created: 2025/01/10 16:17:30 by mavellan          #+#    #+#             */
+/*   Updated: 2025/01/10 17:22:16 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int	check_file_extension(char *file_name)
+void	free_map(char **map, int rows)
 {
-	if (!ft_strnstr(file_name + (ft_strlen(file_name) - 4), ".ber", 4))
-		ft_error(2);
-	return (0);
+	int	i;
+
+	i = 0;
+	while (i < rows)
+		free(map[i]);
+	free(map);
+}
+
+void	cleanup(t_game *game, mlx_texture_t *wall, mlx_texture_t *floor)
+{
+	free_map(game->map, game->height);
+	mlx_delete_texture(wall);
+	mlx_delete_texture(floor);
+	mlx_terminate(game->mlx);
 }
