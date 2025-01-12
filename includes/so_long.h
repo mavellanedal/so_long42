@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 16:55:16 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/10 18:21:26 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/12 22:34:54 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@
 # define FILE_MAP "ERROR\nError while validatig map.\n"
 # define INCONSISTENT_MAP_WIDTH "ERROR\nInconsistent map width.\n"
 # define INVALID_CHAR_MAP "ERROR\nInvalid character in map: %c\n"
-# define MLX_INTI "ERROR\nMLX initializatio failed.\n"
+# define MLX_INIT "ERROR\nMLX initializatio failed.\n"
+# define LOAD_TEXTURES "ERROR\nMLX texture load error.\n"
+# define FILED_CONVERT "ERROR\nFiled to convert textures to images.\n"
 // Estrucutra para el mapa
 # define TILE_SIZE 32
 
@@ -50,6 +52,8 @@ void	render_title(t_game *game, int x, int y, char tile);
 void	render_map(t_game *game);
 void	cleanup(t_game *game, mlx_texture_t *wall, mlx_texture_t *floor);
 int		read_line_from_file(int fd, char ***map, int *rows, int *capacity);
-
+int		store_line_in_map(char ***map, int *rows, int *capacity, char *line);
+int		initialize_game(t_game *game, const char *file_path);
+int	load_textures(t_game *game, mlx_texture_t **wall_texture, mlx_texture_t **floor_texture);
 
 #endif

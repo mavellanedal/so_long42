@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 16:34:35 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/10 18:32:22 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/12 22:38:44 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,28 +88,19 @@ int	load_map_lines(int fd, char ***map, int *width, int *rows)
 	return (0);
 }
 
-int	load_and_validate_map(const char *file_path, char ***map, int *w, int *h)
-{
-	int	fd;
-
-	fd = open(file_path, O_RDONLY);
-	if (fd == -1)
-	{
-		perror("Error opening file");
-		return (-1);
-	}
-	if (load_map_lines(fd, map, w, h) < 0)
-	{
-		close(fd);
-		return (-1);
-	}
-	if (!validate_map(*map, *w, *h))
-	{
-		free_map(*map, *h);
-		close(fd);
-		return (-1);
-	}
-
-	close(fd);
-	return (0);
+int load_and_validate_map(const char *file_path, char ***map, int *width, int *height) {
+    int fd = open(file_path, O_RDONLY);
+    if (fd < 0) {
+        perror("Error opening file");
+        return (-1);
+    }
+    int rows = 0, map_width = -1;
+    if (load_map_lines(fd, map, &map_width, &rows) < 0) {
+        close(fd);
+        return (-1);
+    }
+    close(fd);
+    *height = rows;
+    *width = map_width;
+    return (0);
 }

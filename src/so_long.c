@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 17:07:41 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/10 18:33:43 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/12 22:14:27 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,16 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 		return (ft_error(1));
-
-	if (load_and_validate_map(av[1], &game.map, &game.width, &game.height) < 0)
-		return (ft_error(3));
-	game.mlx = mlx_init(game.width * TILE_SIZE, game.height * TILE_SIZE, "so_long", false);
-	if (!game.mlx)
-		return (ft_error(5));
-	return (0);
+	if (initialize_game(&game, av[1]) < 0)
+		return (EXIT_FAILURE);
+	if (load_textures(&game, &wall_texture, &floor_texture) < 0)
+	{
+		cleanup(&game, wall_texture, floor_texture);
+		return (EXIT_FAILURE);
+	}
+	render_map(&game);
+	mlx_loop(game.mlx);
+	cleanup(&game, wall_texture, floor_texture);
+	return (EXIT_SUCCESS);
 }
 
