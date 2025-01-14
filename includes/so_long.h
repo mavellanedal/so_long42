@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 16:55:16 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/12 22:34:54 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:47:18 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-
 //Error message
 # define PARAMETERS_ERROR "ERROR\nYou must pass as parameter only the map\n"
 # define FILE_EXTENSION_ERROR "ERROR\nYou must pass as parameter a .ber file\n"
@@ -30,15 +29,15 @@
 # define LOAD_TEXTURES "ERROR\nMLX texture load error.\n"
 # define FILED_CONVERT "ERROR\nFiled to convert textures to images.\n"
 // Estrucutra para el mapa
-# define TILE_SIZE 32
+# define TIT_SIZE 32
 
 typedef struct s_game {
 	mlx_t		*mlx;
 	mlx_image_t	*wall_img;
 	mlx_image_t	*floor_img;
 	char		**map;
-	int			width;
-	int			height;
+	int			w;
+	int			h;
 }	t_game;
 
 int		ft_error(int nbr_error);

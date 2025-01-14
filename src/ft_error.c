@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 17:22:31 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/12 22:36:03 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:44:37 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,7 @@ int	ft_error(int nbr_error)
 		return (ft_printf(INCONSISTENT_MAP_WIDTH));
 	else if (nbr_error == 5)
 		return (ft_printf(MLX_INIT));
+	else if (nbr_error == 5)
+		return (ft_printf(LOAD_TEXTURES));
 	return (0);
 }

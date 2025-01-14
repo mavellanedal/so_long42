@@ -25,7 +25,7 @@ $(NAME): $(OBJS) $(MLX_LIB) $(LIBFT) $(PRINTF_LIB)
 	$(CC) $(CFLAGS) $(OBJS) $(MLX_LIB) $(PRINTF_LIB) $(LIBFT) $(LIBS) -o $(NAME)
 
 $(MLX_LIB):
-	cmake -S $(MLX_DIR) -B $(MLX_DIR)/build -
+	cmake -S $(MLX_DIR) -B $(MLX_DIR)/build
 	$(MAKE) -C $(MLX_DIR)/build
 
 $(LIBFT):

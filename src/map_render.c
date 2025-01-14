@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 16:34:35 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/12 22:38:44 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:19:46 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	validate_line(const char *line, int expected_width)
 			ft_printf(INVALID_CHAR_MAP, line[i]);
 			return (0);
 		}
+		i++;
 	}
 	return (len);
 }
@@ -43,6 +44,8 @@ char	**resize_map(char **map, int capacity, int rows)
 	int		i;
 
 	i = 0;
+	if (capacity <= 0 || rows < 0)
+		return (NULL);
 	new_map = malloc(sizeof(char *) * capacity * 2);
 	if (!new_map)
 	{
@@ -61,6 +64,7 @@ char	**resize_map(char **map, int capacity, int rows)
 
 int	load_map_lines(int fd, char ***map, int *width, int *rows)
 {
+	ft_printf("load map lines");
 	int		capacity;
 	char	**temp_map;
 	int		result;
@@ -88,19 +92,28 @@ int	load_map_lines(int fd, char ***map, int *width, int *rows)
 	return (0);
 }
 
-int load_and_validate_map(const char *file_path, char ***map, int *width, int *height) {
-    int fd = open(file_path, O_RDONLY);
-    if (fd < 0) {
-        perror("Error opening file");
-        return (-1);
-    }
-    int rows = 0, map_width = -1;
-    if (load_map_lines(fd, map, &map_width, &rows) < 0) {
-        close(fd);
-        return (-1);
-    }
-    close(fd);
-    *height = rows;
-    *width = map_width;
-    return (0);
+int	load_and_validate_map(const char *file_path, char ***map, int *w, int *h)
+{
+	ft_printf("Load and validate lines\n");
+	int	fd;
+	int	rows;
+	int	map_w;
+
+	rows = 0;
+	map_w = -1;
+	fd = open(file_path, O_RDONLY);
+	if (fd < 0)
+	{
+		ft_printf("Error opening file");
+		return (-1);
+	}
+	if (load_map_lines(fd, map, &map_w, &rows) < 0)
+	{
+		close(fd);
+		return (-1);
+	}
+	close(fd);
+	*h = rows;
+	*w = map_w;
+	return (0);
 }
