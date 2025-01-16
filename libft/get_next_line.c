@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 18:06:22 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/08 16:50:33 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/16 14:33:53 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ char	*get_next_line(int fd)
 	free(buf);
 	if (ft_strlen(line) > 0)
 		return (line);
-	free (line);
+	free(line);
 	return (NULL);
 }

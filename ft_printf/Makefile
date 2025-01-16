@@ -1,4 +1,4 @@
-NAME = libftprintf.a
+NAME = ft_printf.a
 
 SRC = ft_printf.c \
       ft_print_string.c \
@@ -28,17 +28,16 @@ $(NAME): $(OBJ)
 	make -C $(LIBFT_DIR)
 	cp $(LIBFT) ./
 	$(AR) $(NAME) $(OBJ) libft.a
-	echo "libftprintf.a creado exitosamente."
 
 %.o: %.c $(MAKEFILE) $(PRINTF)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	make -C $(LIBFT_DIR) clean  # Limpia libft
+	make -C $(LIBFT_DIR) clean
 	rm -f $(OBJ)
 
 fclean: clean
-	make -C $(LIBFT_DIR) fclean  # Limpia completamente libft
+	make -C $(LIBFT_DIR) fclean
 	rm -f $(NAME) libft.a
 
 re: fclean all

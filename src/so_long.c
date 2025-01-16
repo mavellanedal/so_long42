@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/09 17:07:41 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/14 18:16:41 by mavellan         ###   ########.fr       */
+/*   Created: 2025/01/15 17:16:26 by mavellan          #+#    #+#             */
+/*   Updated: 2025/01/16 16:35:38 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,24 @@
 
 int	main(int ac, char **av)
 {
-	t_game			game;
-	mlx_texture_t	*wall_texture;
-	mlx_texture_t	*floor_texture;
+	mlx_t	*mlx;
+	char	**map;
+	int		rows;
 
-	wall_texture = NULL;
-	floor_texture = NULL;
 	if (ac != 2)
 		return (ft_error(1));
-	if (check_file_extension(av[1]) < 0)
+	rows = 0;
+	map = read_map(av[1], &rows);
+	if (map == NULL)
+		return (ft_error(3));
+	if (map_checks(map, rows, av[1]) != 0)
+		return (1);
+	ft_printf("El mapa es correcto.\n");
+	mlx = mlx_init(WIDTH, HEIGHT, "so_long", true);
+	if (!mlx)
 		return (ft_error(2));
-	if (initialize_game(&game, av[1]) < 0)
-		return (ft_error(5));
-	if (load_textures(&game, &wall_texture, &floor_texture) < 0)
-	{
-		cleanup(&game, wall_texture, floor_texture);
-		return (ft_error(6));
-	}
-	render_map(&game);
-	mlx_loop(game.mlx);
-	cleanup(&game, wall_texture, floor_texture);
+	mlx_loop(mlx);
+	free_map(map);
+	mlx_terminate(mlx);
 	return (0);
 }

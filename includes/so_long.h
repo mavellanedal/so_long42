@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/09 16:55:16 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/14 15:47:18 by mavellan         ###   ########.fr       */
+/*   Created: 2025/01/15 17:15:03 by mavellan          #+#    #+#             */
+/*   Updated: 2025/01/16 17:34:39 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,40 +19,43 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-//Error message
-# define PARAMETERS_ERROR "ERROR\nYou must pass as parameter only the map\n"
-# define FILE_EXTENSION_ERROR "ERROR\nYou must pass as parameter a .ber file\n"
-# define FILE_MAP "ERROR\nError while validatig map.\n"
-# define INCONSISTENT_MAP_WIDTH "ERROR\nInconsistent map width.\n"
-# define INVALID_CHAR_MAP "ERROR\nInvalid character in map: %c\n"
-# define MLX_INIT "ERROR\nMLX initializatio failed.\n"
-# define LOAD_TEXTURES "ERROR\nMLX texture load error.\n"
-# define FILED_CONVERT "ERROR\nFiled to convert textures to images.\n"
-// Estrucutra para el mapa
-# define TIT_SIZE 32
+# define WIDTH 800
+# define HEIGHT 600
 
-typedef struct s_game {
-	mlx_t		*mlx;
-	mlx_image_t	*wall_img;
-	mlx_image_t	*floor_img;
-	char		**map;
-	int			w;
-	int			h;
-}	t_game;
+//Mensajes de error
+# define ARGV_MISSING "ERROR\nDebes introducir el mapa como argumento.\n"
+# define MLX_INIT "ERROR\nAl intentar inicializar MLX.\n"
+# define READING_MAP "ERROR\nLeyendo el mapa.\n"
+# define INVALID_CHARS "ERROR\nCaracteres invalidos en el mapa.\n"
+# define NOT_RECTANGUALR "ERROR\nEl mapa debe ser rectangular.\n"
+# define NOT_CLOSED "ERROR\nEl mapa debe estar cerrado.\n"
+# define NOT_EXIT "ERROR\nEl mapa debe contener una salida\n"
+# define NOT_POSITION "ERROR\nEl mapa debe contener una posicion de salida\n"
+# define NOT_COLECTIONABLES "ERROR\nEl mapa debe tener un colceccionable\n"
+# define FILE_EXTENSION "ERROR\nLa extension del mapa debe ser .ber\n"
+# define NO_ACCESIBLE "ERROR\nLa salida no es accesible.\n"
 
-int		ft_error(int nbr_error);
+
+//map_checks2.c
+char	**read_map(const char *path, int *rows);
+int		process_lines(int fd, char **map);
 int		check_file_extension(char *file_name);
-void	free_map(char **map, int rows);
-int		load_and_validate_map(const char *file_p, char ***map, int *w, int *h);
-int		load_map_lines(int fd, char ***map, int *width, int *rows);
-char	**resize_map(char **map, int capacity, int rows);
-int		validate_line(const char *line, int expected_width);
-void	render_title(t_game *game, int x, int y, char tile);
-void	render_map(t_game *game);
-void	cleanup(t_game *game, mlx_texture_t *wall, mlx_texture_t *floor);
-int		read_line_from_file(int fd, char ***map, int *rows, int *capacity);
-int		store_line_in_map(char ***map, int *rows, int *capacity, char *line);
-int		initialize_game(t_game *game, const char *file_path);
-int	load_textures(t_game *game, mlx_texture_t **wall_texture, mlx_texture_t **floor_texture);
+int		is_initial_pos(char **map);
+int		is_colectionables(char **map);
 
+//map_checks3.c
+int		count_lines(const char *path);
+int		is_valid_chars(char **map);
+int		is_exit(char **map);
+int		is_rectangular(char **map);
+int		is_closed(char **map, int rows);
+
+//map_checks.c
+int		map_checks(char **map, int rows, char *file_names);
+
+//utils.c
+void	free_map(char **map);
+
+//ft_error.c
+int		ft_error(int i);
 #endif

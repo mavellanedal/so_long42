@@ -5,26 +5,36 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/09 17:22:31 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/14 15:44:37 by mavellan         ###   ########.fr       */
+/*   Created: 2025/01/16 13:48:01 by mavellan          #+#    #+#             */
+/*   Updated: 2025/01/16 17:34:27 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int	ft_error(int nbr_error)
+int	ft_error(int i)
 {
-	if (nbr_error == 1)
-		return (ft_printf(PARAMETERS_ERROR));
-	else if (nbr_error == 2)
-		return (ft_printf(FILE_EXTENSION_ERROR));
-	else if (nbr_error == 3)
-		return (ft_printf(FILE_MAP));
-	else if (nbr_error == 4)
-		return (ft_printf(INCONSISTENT_MAP_WIDTH));
-	else if (nbr_error == 5)
+	if (i == 0)
+		return (ft_printf(ARGV_MISSING));
+	else if (i == 2)
 		return (ft_printf(MLX_INIT));
-	else if (nbr_error == 5)
-		return (ft_printf(LOAD_TEXTURES));
+	else if (i == 3)
+		return (ft_printf(READING_MAP));
+	else if (i == 4)
+		return (ft_printf(INVALID_CHARS));
+	else if (i == 5)
+		return (ft_printf(NOT_RECTANGUALR));
+	else if (i == 6)
+		return (ft_printf(NOT_CLOSED));
+	else if (i == 7)
+		return (ft_printf(FILE_EXTENSION));
+	else if (i == 8)
+		return (ft_printf(NOT_EXIT));
+	else if (i == 9)
+		return (ft_printf(NOT_COLECTIONABLES));
+	else if (i == 10)
+		return (ft_printf(NOT_POSITION));
+	else if (i == 11)
+		return (ft_printf(NO_ACCESIBLE));
 	return (0);
 }

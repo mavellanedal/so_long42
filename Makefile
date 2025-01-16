@@ -1,55 +1,67 @@
+# Source files
+SRCS =  src/so_long.c \
+	src/map_checks.c \
+	src/map_checks2.c \
+	src/map_checks3.c \
+	src/utils.c \
+	src/ft_error.c \
+
+OBJS = ${SRCS:.c=.o}
+
+# Target binary name
+NAME = so_long
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I./includes -I./MLX42/include -I./ft_printf/includes
+CFLAGS = -Wall -Werror -Wextra #-g -fsanitize=address
+RM = rm -f
+
+# Configuracion de libft y printf
+LIBFT_DIR = libft
+LIBFT = $(LIBFT_DIR)/libft.a
+FT_PRINTF_DIR = ft_printf
+FT_PRINTF = $(FT_PRINTF_DIR)/ft_printf.a
+
+# Configuración de MLX42
 MLX_DIR = MLX
 MLX_LIB = $(MLX_DIR)/build/libmlx42.a
-PRINTF_DIR = ft_printf
-PRINTF_LIB = $(PRINTF_DIR)/libftprintf.a
-LIBFT_DIR = libft/
-LIBFT = $(LIBFT_DIR)/libft.a
-LIBS = -ldl -lglfw -pthread -lm
+MLX_INCLUDE = -I$(MLX_DIR)/include
+MLX_FLAGS = -ldl -lglfw -pthread -lm
+HEADER = includes/so_long.h
 
-NAME = so_long
-SRCS = src/so_long.c \
-	src/ft_error.c \
-	src/checks.c \
-	src/utils.c \
-	src/map_render.c \
-	src/map_render2.c \
-	src/renders.c \
+# Build everything
+all: make_mlx make_libft make_printf $(NAME)
 
-OBJS = $(SRCS:.c=.o)
+# Compile .c to .o
+.c.o:
+	${CC} ${CFLAGS} $(MLX_INCLUDE) -c $< -o $@
 
-all: $(MLX_LIB) $(LIBFT) $(PRINTF_LIB) $(NAME)
+# Build the program
+$(NAME): $(OBJS) Makefile $(HEADER)
+	${CC} ${CFLAGS} $(OBJS) $(MLX_LIB) $(MLX_FLAGS) $(FT_PRINTF) $(LIBFT) -o ${NAME}
 
-$(NAME): $(OBJS) $(MLX_LIB) $(LIBFT) $(PRINTF_LIB)
-	$(CC) $(CFLAGS) $(OBJS) $(MLX_LIB) $(PRINTF_LIB) $(LIBFT) $(LIBS) -o $(NAME)
-
-$(MLX_LIB):
-	cmake -S $(MLX_DIR) -B $(MLX_DIR)/build
-	$(MAKE) -C $(MLX_DIR)/build
-
-$(LIBFT):
+make_libft:
 	$(MAKE) -C $(LIBFT_DIR)
 
-$(PRINTF_LIB):
-	$(MAKE) -C $(PRINTF_DIR)
+make_printf:
+	$(MAKE) -C $(FT_PRINTF_DIR)
 
+# Build MLX42
+make_mlx:
+	cmake -S $(MLX_DIR) -B $(MLX_DIR)/build
+	cmake --build $(MLX_DIR)/build
+
+# Clean objects
 clean:
-	rm -f $(OBJS)
-	@if [ -d $(MLX_DIR)/build ]; then \
-		$(MAKE) -C $(MLX_DIR)/build clean; \
-	fi
-	$(MAKE) -C $(PRINTF_DIR) clean
+	$(MAKE) -C $(FT_PRINTF_DIR) clean
 	$(MAKE) -C $(LIBFT_DIR) clean
+	${RM} ${OBJS}
+	${RM} -r $(MLX_DIR)/build
 
+# Clean all files
 fclean: clean
-	rm -f $(NAME)
-	@if [ -d $(MLX_DIR)/build ]; then \
-		rm -rf $(MLX_DIR)/build; \
-	fi
-	$(MAKE) -C $(PRINTF_DIR) fclean
+	$(MAKE) -C $(FT_PRINTF_DIR) fclean
 	$(MAKE) -C $(LIBFT_DIR) fclean
+	${RM} ${NAME}
 
+# Rebuild project
 re: fclean all
-
 .PHONY: all clean fclean re
