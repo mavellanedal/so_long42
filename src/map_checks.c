@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 16:17:11 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/16 18:14:51 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/17 09:57:38 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,14 @@
 
 int	flood_fill(char **map, int x, int y)
 {
-	ft_printf("Flood_fill\n");
 	if (x < 0 || y < 0 || !map[x][y] || map[x][y] == '1')
 		return (0);
 	if (map[x][y] == 'E')
 	{
-		ft_printf("(A)\n");
 		return (1);
 	}
 	if (map[x][y] == 'V' || map[x][y] == '1')
 	{
-		ft_printf("(B)\n");
 		return (0);
 	}
 	else
@@ -48,7 +45,6 @@ int	flood_fill(char **map, int x, int y)
 
 int	find_player_position(char **map, int rows, int *px, int *py)
 {
-	ft_printf("find_player_pos\n");
 	int	i;
 	int	j;
 
@@ -58,7 +54,7 @@ int	find_player_position(char **map, int rows, int *px, int *py)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == 'p')
+			if (map[i][j] == 'P')
 			{
 				*px = i;
 				*py = j;
@@ -73,7 +69,6 @@ int	find_player_position(char **map, int rows, int *px, int *py)
 
 char	**copy_map(char **map, int rows)
 {
-	ft_printf("copy_map\n");
 	char	**map_copy;
 	int		i;
 
@@ -99,7 +94,6 @@ char	**copy_map(char **map, int rows)
 
 int	is_accesible(char **map, int rows)
 {
-	ft_printf("is_accesible\n");
 	int		px;
 	int		py;
 	char	**map_copy;
@@ -120,9 +114,6 @@ int	is_accesible(char **map, int rows)
 
 int	map_checks(char **map, int rows, char *file_name)
 {
-	int	cols;
-
-	cols = ft_strlen(map[0]);
 	if (!check_file_extension(file_name))
 		return (ft_error(7));
 	if (!is_valid_chars(map))

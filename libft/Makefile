@@ -42,10 +42,7 @@ SRC = ft_isalpha.c \
 	ft_putendl_fd.c \
 	ft_putnbr_fd.c \
 	get_next_line.c \
-
-OBJ = $(SRC:.c=.o)
-
-BONUS_SRC = ft_lstnew_bonus.c \
+	ft_lstnew_bonus.c \
 	ft_lstadd_front_bonus.c \
 	ft_lstsize_bonus.c \
 	ft_lstlast_bonus.c \
@@ -55,15 +52,12 @@ BONUS_SRC = ft_lstnew_bonus.c \
 	ft_lstiter_bonus.c \
 	ft_lstmap_bonus.c
 
-BONUS_OBJ = $(BONUS_SRC:.c=.o)
+OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ) $(MAKEFILE) $(LIBFT)
 	$(AR) $(NAME) $(OBJ)
-
-bonus: $(NAME) $(BONUS_OBJ) $(OBJ)
-	$(AR) $(NAME) $(OBJ) $(BONUS_OBJ)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@

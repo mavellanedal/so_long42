@@ -26,8 +26,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	make -C $(LIBFT_DIR)
-	cp $(LIBFT) ./
-	$(AR) $(NAME) $(OBJ) libft.a
+	$(AR) $(NAME) $(OBJ)
 
 %.o: %.c $(MAKEFILE) $(PRINTF)
 	$(CC) $(CFLAGS) -c $< -o $@
