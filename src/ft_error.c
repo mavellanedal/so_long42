@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:48:01 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/16 17:34:27 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/17 10:40:02 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,18 @@ int	ft_error(int i)
 		return (ft_printf(NOT_POSITION));
 	else if (i == 11)
 		return (ft_printf(NO_ACCESIBLE));
+	else if (i == 12)
+		return (ft_printf(INIT_MLX));
+	return (0);
+}
+
+int	ft_error2(int i)
+{
+	if (i == 13)
+		return (ft_printf(WALL_TEXTURE_LOAD));
+	else if (i == 14)
+		return (ft_printf(CREATE_WALL_IMG));
+	else if (i == 15)
+		return (ft_printf(DRAW_WALL));
 	return (0);
 }

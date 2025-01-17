@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:15:03 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/16 17:34:39 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/17 11:28:12 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-# define WIDTH 800
-# define HEIGHT 600
+# define TILE_SIZE 60
 
 //Mensajes de error
 # define ARGV_MISSING "ERROR\nDebes introducir el mapa como argumento.\n"
@@ -34,7 +33,10 @@
 # define NOT_COLECTIONABLES "ERROR\nEl mapa debe tener un colceccionable\n"
 # define FILE_EXTENSION "ERROR\nLa extension del mapa debe ser .ber\n"
 # define NO_ACCESIBLE "ERROR\nLa salida no es accesible.\n"
-
+# define INIT_MLX "ERROR\nInicalizando MLX.\n"
+# define WALL_TEXTURE_LOAD "ERROR\nCargando la textura del muro\n"
+# define CREATE_WALL_IMG "ERROR\nCreando la imagen del muro\n"
+# define DRAW_WALL "ERROR\nDibujando la imagen del muro\n"
 
 //map_checks2.c
 char	**read_map(const char *path, int *rows);
@@ -58,4 +60,11 @@ void	free_map(char **map);
 
 //ft_error.c
 int		ft_error(int i);
+int		ft_error2(int i);
+
+//renders.c
+int		render_walls(mlx_t *mlx, char **map, int rows, int cols);
+
+//so_long.c
+int		start_game(char **map, int rows, int cols);
 #endif

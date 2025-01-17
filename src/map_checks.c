@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 16:17:11 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/17 09:57:38 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/17 10:05:25 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,6 @@ int	flood_fill(char **map, int x, int y)
 		map[x][y] = 'V';
 		return (flood_fill(map, x + 1, y) + flood_fill(map, x - 1, y) + \
 			flood_fill(map, x, y + 1) + flood_fill(map, x, y - 1));
-		/*
-		if (flood_fill(map, x + 1, y))
-			return (1);
-		if (flood_fill(map, x - 1, y))
-			return (1);
-		if (flood_fill(map, x, y + 1))
-			return (1);
-		if (flood_fill(map, x, y - 1))
-			return (1);
-		*/
 	}
 	return (0);
 }

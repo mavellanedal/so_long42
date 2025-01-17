@@ -5,13 +5,14 @@ SRCS =  src/so_long.c \
 	src/map_checks3.c \
 	src/utils.c \
 	src/ft_error.c \
+	src/renders.c \
 
 OBJS = ${SRCS:.c=.o}
 
 # Target binary name
 NAME = so_long
 CC = cc
-CFLAGS = -Wall -Werror -Wextra #-g -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 RM = rm -f
 
 # Configuracion de libft y printf
