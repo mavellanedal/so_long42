@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:48:01 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/17 10:40:02 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/17 18:03:52 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,77 @@ int	ft_error2(int i)
 		return (ft_printf(CREATE_WALL_IMG));
 	else if (i == 15)
 		return (ft_printf(DRAW_WALL));
+	else if (i == 16)
+		return (ft_printf(FLOOR_TEXTURE_LOAD));
+	else if (i == 17)
+		return (ft_printf(CREATE_FLOOR_IMG));
+	else if (i == 18)
+		return (ft_printf(DRAW_FLOOR));
+	else if (i == 19)
+		return (ft_printf(COIN_TEXTURE_LOAD));
+	else if (i == 20)
+		return (ft_printf(CREATE_COIN_IMG));
+	else if (i == 21)
+		return (ft_printf(DRAW_COIN));
+	else if (i == 22)
+		return (ft_printf(PLAYER_TEXTURE_LOAD));
+	else if (i == 23)
+		return (ft_printf(CREATE_PLAYER_IMG));
+	else if (i == 24)
+		return (ft_printf(DRAW_PLAYER));
 	return (0);
+}
+
+int	ft_error3(int i)
+{
+	if (i == 25)
+		return (ft_printf(EXIT_TEXTURE_LOAD));
+	else if (i == 26)
+		return (ft_printf(CREATE_EXIT_IMG));
+	else if (i == 27)
+		return (ft_printf(DRAW_EXIT));
+	return (0);
+}
+
+int	check_error(char asset, int i)
+{
+	if (asset == 'w')
+	{
+		if (i == 1)
+			return (ft_error2(13));
+		else if (i == 2)
+			return (ft_error2(14));
+	}
+	else if (asset == 'f')
+	{
+		if (i == 1)
+			return (ft_error2(16));
+		else if (i == 2)
+			return (ft_error2(17));
+	}
+}
+
+int	check_error2(char asset, int i)
+{
+	if (asset == 'c')
+	{
+		if (i == 1)
+			return (ft_error2(19));
+		else if (i == 2)
+			return (ft_error2(20));
+	}
+	else if (asset == 'p')
+	{
+		if (i == 1)
+			return (ft_error2(22));
+		else if (i == 2)
+			return (ft_error2(23));
+	}
+	else if (asset == 'e')
+	{
+		if (i == 1)
+			return (ft_error3(25));
+		else if (i == 2)
+			return (ft_error3(26));
+	}
 }
