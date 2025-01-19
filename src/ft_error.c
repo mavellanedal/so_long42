@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:48:01 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/17 18:03:52 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/19 14:38:05 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int	check_error(char asset, int i)
 		else if (i == 2)
 			return (ft_error2(17));
 	}
+	return (0);
 }
 
 int	check_error2(char asset, int i)
@@ -122,4 +123,5 @@ int	check_error2(char asset, int i)
 		else if (i == 2)
 			return (ft_error3(26));
 	}
+	return (0);
 }

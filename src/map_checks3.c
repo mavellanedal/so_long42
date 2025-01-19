@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:35:49 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/16 16:38:29 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/19 14:29:57 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,19 @@ int	count_lines(const char *path)
 	return (lines);
 }
 
-int	is_valid_chars(char **map)
+int	is_valid_chars(t_game *game)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (map[i])
+	while (game->map[i])
 	{
 		j = 0;
-		while (map[i][j])
+		while (game->map[i][j])
 		{
-			if (map[i][j] != '1' && map[i][j] != '0' && map[i][j] != 'E'
-				&& map[i][j] != 'P' && map[i][j] != 'C')
+			if (game->map[i][j] != '1' && game->map[i][j] != '0' && game->map[i][j] != 'E'
+				&& game->map[i][j] != 'P' && game->map[i][j] != 'C')
 				return (0);
 			j++;
 		}
@@ -54,7 +54,7 @@ int	is_valid_chars(char **map)
 	return (1);
 }
 
-int	is_exit(char **map)
+int	is_exit(t_game *game)
 {
 	int	i;
 	int	j;
@@ -62,12 +62,12 @@ int	is_exit(char **map)
 
 	i = 0;
 	cont = 0;
-	while (map[i])
+	while (game->map[i])
 	{
 		j = 0;
-		while (map[i][j])
+		while (game->map[i][j])
 		{
-			if (map[i][j] == 'E')
+			if (game->map[i][j] == 'E')
 				cont++;
 			j++;
 		}
@@ -78,40 +78,39 @@ int	is_exit(char **map)
 	return (1);
 }
 
-int	is_rectangular(char **map)
+int	is_rectangular(t_game *game)
 {
 	size_t	len;
 	int		i;
 
-	len = ft_strlen(map[0]);
+	len = ft_strlen(game->map[0]);
 	i = 0;
-	while (map[i])
+	while (game->map[i])
 	{
-		if (ft_strlen(map[i]) != len)
+		if (ft_strlen(game->map[i]) != len)
 			return (0);
 		i++;
 	}
 	return (1);
 }
 
-int	is_closed(char **map, int rows)
+int	is_closed(t_game *game)
 {
-	int	cols;
 	int	i;
 	int	j;
 
 	j = 0;
 	i = 0;
-	cols = ft_strlen(map[0]);
-	while (j < cols)
+	game->cols = ft_strlen(game->map[0]);
+	while (j < game->cols)
 	{
-		if (map[0][j] != '1' || map[rows - 1][j] != '1')
+		if (game->map[0][j] != '1' || game->map[game->rows - 1][j] != '1')
 			return (0);
 		j++;
 	}
-	while (i < rows)
+	while (i < game->rows)
 	{
-		if (map[i][0] != '1' || map[i][cols - 1] != '1')
+		if (game->map[i][0] != '1' || game->map[i][game->cols - 1] != '1')
 			return (0);
 		i++;
 	}

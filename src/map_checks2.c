@@ -6,36 +6,35 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 12:58:30 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/16 16:38:47 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/19 14:30:14 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-char	**read_map(const char *path, int *rows)
+char	**read_map(const char *path, t_game *game)
 {
 	int		fd;
-	char	**map;
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (NULL);
-	*rows = count_lines(path);
-	if (*rows <= 0)
+	game->rows = count_lines(path);
+	if (game->rows <= 0)
 		return (NULL);
-	map = malloc(sizeof(char *) * (*rows + 1));
-	if (!map)
+	game->map = malloc(sizeof(char *) * (game->rows + 1));
+	if (!game->map)
 	{
 		close(fd);
 		return (NULL);
 	}
-	if (!process_lines(fd, map))
+	if (!process_lines(fd, game))
 		return (NULL);
 	close(fd);
-	return (map);
+	return (game->map);
 }
 
-int	process_lines(int fd, char **map)
+int	process_lines(int fd, t_game *game)
 {
 	char	*line;
 	int		i;
@@ -46,17 +45,17 @@ int	process_lines(int fd, char **map)
 	while (line)
 	{
 		len = ft_strlen(line);
-		map[i] = ft_strndup(line, len - 1);
+		game->map[i] = ft_strndup(line, len - 1);
 		free(line);
-		if (!map[i])
+		if (!game->map[i])
 		{
-			free_map(map);
+			free_map(game, 1);
 			return (0);
 		}
 		i++;
 		line = get_next_line(fd);
 	}
-	map[i] = NULL;
+	game->map[i] = NULL;
 	return (1);
 }
 
@@ -67,7 +66,7 @@ int	check_file_extension(char *file_name)
 	return (1);
 }
 
-int	is_initial_pos(char **map)
+int	is_initial_pos(t_game *game)
 {
 	int	i;
 	int	j;
@@ -75,12 +74,12 @@ int	is_initial_pos(char **map)
 
 	i = 0;
 	cont = 0;
-	while (map[i])
+	while (game->map[i])
 	{
 		j = 0;
-		while (map[i][j])
+		while (game->map[i][j])
 		{
-			if (map[i][j] == 'P')
+			if (game->map[i][j] == 'P')
 				cont++;
 			j++;
 		}
@@ -91,7 +90,7 @@ int	is_initial_pos(char **map)
 	return (1);
 }
 
-int	is_colectionables(char **map)
+int	is_colectionables(t_game *game)
 {
 	int	i;
 	int	j;
@@ -99,12 +98,12 @@ int	is_colectionables(char **map)
 
 	i = 0;
 	cont = 0;
-	while (map[i])
+	while (game->map[i])
 	{
 		j = 0;
-		while (map[i][j])
+		while (game->map[i][j])
 		{
-			if (map[i][j] == 'C')
+			if (game->map[i][j] == 'C')
 				cont++;
 			j++;
 		}

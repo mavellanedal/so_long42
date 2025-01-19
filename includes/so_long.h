@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:15:03 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/17 18:11:36 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/19 14:37:34 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,48 +50,62 @@
 # define CREATE_EXIT_IMG "ERROR\nCreando la imagen de la salida.\n"
 # define DRAW_EXIT "ERROR\nDibujando la imagen de la salida.\n"
 
-typedef struct s_dimensions
+typedef struct s_game
 {
-	int	cols;
-	int	rows;
-}	t_dimensions;
+	mlx_t		*mlx;
+	mlx_image_t	*wall_image;
+	mlx_image_t	*floor_image;
+	mlx_image_t	*coin_image;
+	mlx_image_t	*exit_image;
+	mlx_image_t	*player_image;
+	char		**map;
+	char		**map_copy;
+	int			rows;
+	int			cols;
+	int			player_x;
+	int			player_y;
+}	t_game;
 
 //map_checks2.c
-char		**read_map(const char *path, int *rows);
-int			process_lines(int fd, char **map);
+char		**read_map(const char *path, t_game *game);
+int			process_lines(int fd, t_game *game);
 int			check_file_extension(char *file_name);
-int			is_initial_pos(char **map);
-int			is_colectionables(char **map);
+int			is_initial_pos(t_game *game);
+int			is_colectionables(t_game *game);
 
 //map_checks3.c
 int			count_lines(const char *path);
-int			is_valid_chars(char **map);
-int			is_exit(char **map);
-int			is_rectangular(char **map);
-int			is_closed(char **map, int rows);
+int			is_valid_chars(t_game *game);
+int			is_exit(t_game *game);
+int			is_rectangular(t_game *game);
+int			is_closed(t_game *game);
 
 //map_checks.c
-int			map_checks(char **map, int rows, char *file_names);
+int			flood_fill(t_game *game, int x, int y);
+int			find_player_position(t_game *game);
+char		**copy_map(char **map, int rows);
+int			is_accesible(t_game *game);
+int			map_checks(t_game *game, char *file_name);
 
 //utils.c
-void		free_map(char **map);
+void		free_map(t_game *game, int i);
 
 //ft_error.c
 int			ft_error(int i);
 int			ft_error2(int i);
-int			check_error(char *path, int i);
-int			check_error2(char *path, int i);
+int			check_error(char asset, int i);
+int			check_error2(char asset, int i);
 
 //renders.c
-int			render_walls(mlx_t *mlx, char **map, int rows, int cols);
-int			render_floor(mlx_t *mlx, char **map, int rows, int cols);
-int			render_coin(mlx_t *mlx, char **map, int rows, int cols);
-int			render_player(mlx_t *mlx, char **map, int rows, int cols);
+int			render_walls(t_game *game);
+int			render_floor(t_game *game);
+int			render_coin(t_game *game);
+int			render_player(t_game *game);
 
 //so_long.c
-int			start_game(char **map, int rows, int cols);
+int			start_game(t_game *game);
 
 //make_images.c
-mlx_image_t	*create_image(mlx_t *mlx, char assets);
+mlx_image_t	*create_image(t_game *game, char asset);
 
 #endif
