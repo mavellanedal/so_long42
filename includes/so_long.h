@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:15:03 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/19 14:37:34 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:03:15 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ int			is_accesible(t_game *game);
 int			map_checks(t_game *game, char *file_name);
 
 //utils.c
-void		free_map(t_game *game, int i);
+void		free_map(t_game *game);
+void		free_map_copy(t_game *game);
 
 //ft_error.c
 int			ft_error(int i);
@@ -101,11 +102,13 @@ int			render_walls(t_game *game);
 int			render_floor(t_game *game);
 int			render_coin(t_game *game);
 int			render_player(t_game *game);
+int			render_exit(t_game *game);
 
 //so_long.c
 int			start_game(t_game *game);
 
 //make_images.c
 mlx_image_t	*create_image(t_game *game, char asset);
+char		*check_asset(char asset);
 
 #endif

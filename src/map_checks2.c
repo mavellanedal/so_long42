@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 12:58:30 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/19 14:30:14 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:54:56 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	process_lines(int fd, t_game *game)
 		free(line);
 		if (!game->map[i])
 		{
-			free_map(game, 1);
+			free_map(game);
 			return (0);
 		}
 		i++;

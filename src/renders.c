@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:09:53 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/19 14:47:20 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:01:55 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	render_walls(t_game *game)
 {
 	int	y;
 	int	x;
+
 	game->wall_image = create_image(game, 'w');
 	if (!game->wall_image)
 		return (0);
@@ -27,8 +28,8 @@ int	render_walls(t_game *game)
 		{
 			if (game->map[y][x] == '1')
 			{
-				if (mlx_image_to_window(game->mlx, game->wall_image, x * TILE_SIZE, \
-					y * TILE_SIZE) < 0)
+				if (mlx_image_to_window(game->mlx, game->wall_image, \
+				x * TILE_SIZE, y * TILE_SIZE) < 0)
 					return (ft_error2(15));
 			}
 			x++;
@@ -54,8 +55,8 @@ int	render_floor(t_game *game)
 		{
 			if (game->map[y][x] == '0')
 			{
-				if (mlx_image_to_window(game->mlx, game->floor_image, x * TILE_SIZE, \
-					y * TILE_SIZE) < 0)
+				if (mlx_image_to_window(game->mlx, game->floor_image, \
+				x * TILE_SIZE, y * TILE_SIZE) < 0)
 					return (ft_error2(15));
 			}
 			x++;
@@ -81,8 +82,8 @@ int	render_player(t_game *game)
 		{
 			if (game->map[y][x] == 'P')
 			{
-				if (mlx_image_to_window(game->mlx, game->player_image, x * TILE_SIZE, \
-					y * TILE_SIZE) < 0)
+				if (mlx_image_to_window(game->mlx, game->player_image, \
+				x * TILE_SIZE, y * TILE_SIZE) < 0)
 					return (ft_error2(15));
 			}
 			x++;
@@ -108,8 +109,8 @@ int	render_coin(t_game *game)
 		{
 			if (game->map[y][x] == 'C')
 			{
-				if (mlx_image_to_window(game->mlx, game->coin_image, x * TILE_SIZE, \
-					y * TILE_SIZE) < 0)
+				if (mlx_image_to_window(game->mlx, game->coin_image, \
+				x * TILE_SIZE, y * TILE_SIZE) < 0)
 					return (ft_error2(15));
 			}
 			x++;
@@ -125,6 +126,7 @@ int	render_exit(t_game *game)
 	int				y;
 
 	game->exit_image = create_image(game, 'e');
+	ft_printf("La imagen de la puerta se ha creado\n");
 	if (!game->exit_image)
 		return (0);
 	y = 0;
@@ -135,8 +137,9 @@ int	render_exit(t_game *game)
 		{
 			if (game->map[y][x] == 'E')
 			{
-				if (mlx_image_to_window(game->mlx, game->exit_image, x * TILE_SIZE, \
-					y * TILE_SIZE) < 0)
+				ft_printf("Se pone la puerta");
+				if (mlx_image_to_window(game->mlx, game->exit_image, \
+				x * TILE_SIZE, y * TILE_SIZE) < 0)
 					return (ft_error2(15));
 			}
 			x++;

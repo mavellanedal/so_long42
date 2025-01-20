@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 16:17:11 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/19 14:29:20 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:55:36 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,15 @@ int	is_accesible(t_game *game)
 		return (0);
 	if (!find_player_position(game))
 	{
-		free_map(game, 2);
+		free_map_copy(game);
 		return (1);
 	}
 	if (flood_fill(game, game->player_x, game->player_y))
 	{
-		free_map(game, 2);
+		free_map_copy(game);
 		return (1);
 	}
-	free_map(game, 2);
+	free_map_copy(game);
 	return (0);
 }
 

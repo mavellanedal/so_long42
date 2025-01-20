@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:35:49 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/19 14:29:57 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:46:52 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ int	is_valid_chars(t_game *game)
 		j = 0;
 		while (game->map[i][j])
 		{
-			if (game->map[i][j] != '1' && game->map[i][j] != '0' && game->map[i][j] != 'E'
-				&& game->map[i][j] != 'P' && game->map[i][j] != 'C')
+			if (game->map[i][j] != '1' && game->map[i][j] != '0' && \
+			game->map[i][j] != 'E' && game->map[i][j] != 'P' && \
+				game->map[i][j] != 'C')
 				return (0);
 			j++;
 		}
