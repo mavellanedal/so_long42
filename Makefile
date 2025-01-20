@@ -7,14 +7,14 @@ SRCS =  src/so_long.c \
 	src/ft_error.c \
 	src/renders.c \
 	src/make_images.c \
-	src/player_movmeents.c \
+	src/player_movments.c \
 
 OBJS = ${SRCS:.c=.o}
 
 # Target binary name
 NAME = so_long
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra #-g -fsanitize=address
 RM = rm -f
 
 # Configuracion de libft y printf

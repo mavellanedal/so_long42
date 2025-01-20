@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:30:49 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/20 16:32:15 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/20 17:02:15 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ mlx_image_t	*create_image(t_game *game, char asset)
 char	*check_asset(char asset)
 {
 	if (asset == 'w')
-		return ("assets/wall.pngs");
+		return ("assets/wall.png");
 	else if (asset == 'f')
 		return ("assets/floor.png");
 	else if (asset == 'c')

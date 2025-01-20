@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:09:53 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/20 16:11:15 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/20 17:24:52 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	render_coin(t_game *game)
 		x = 0;
 		while (x < game->cols)
 		{
-			if (game->map[y][x] == 'C' && game->coins == 3)
+			if (game->map[y][x] == 'C')
 			{
 				if (mlx_image_to_window(game->mlx, game->coin_image, \
 				x * TILE_SIZE, y * TILE_SIZE) < 0)
@@ -127,7 +127,6 @@ int	render_exit(t_game *game)
 	int				y;
 
 	game->exit_image = create_image(game, 'e');
-	ft_printf("La imagen de la puerta se ha creado\n");
 	if (!game->exit_image)
 		return (0);
 	y = 0;
@@ -136,9 +135,8 @@ int	render_exit(t_game *game)
 		x = 0;
 		while (x < game->cols)
 		{
-			if (game->map[y][x] == 'E')
+			if (game->map[y][x] == 'E' && game->coins == 3)
 			{
-				ft_printf("Se pone la puerta");
 				if (mlx_image_to_window(game->mlx, game->exit_image, \
 				x * TILE_SIZE, y * TILE_SIZE) < 0)
 					return (ft_error2(15));

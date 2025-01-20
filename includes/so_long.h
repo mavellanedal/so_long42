@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:15:03 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/20 16:30:07 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/20 17:50:02 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,9 @@ mlx_image_t	*create_image(t_game *game, char asset);
 char		*check_asset(char asset);
 
 //player_movmets.c
-void		handle_key(mlx_key_data_t keydata, void *param, t_game *game);
+void		handle_key(mlx_key_data_t keydata, void *param);
+int			get_player_pos_x(t_game *game);
+int			get_player_pos_y(t_game *game);
+int			check_player_pos(t_game *game);
 
 #endif

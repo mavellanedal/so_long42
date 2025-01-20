@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:16:26 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/20 16:30:14 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/20 17:50:15 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	start_game(t_game *game)
 		if (render_exit(game) != 1)
 			return (0);
 	}
-	mlx_key_hook(game->mlx, handle_key, &game);
+	mlx_key_hook(game->mlx, &handle_key, game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
 	return (1);
@@ -53,6 +53,9 @@ int	main(int ac, char **av)
 		free_map(&game);
 		return (0);
 	}
+	game.coins = 0;
+	game.player_x = get_player_pos_x(&game);
+	game.player_y = get_player_pos_y(&game);
 	if (start_game(&game) != 1)
 	{
 		free_map(&game);
