@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:16:26 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/20 16:03:22 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:30:14 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,12 @@ int	start_game(t_game *game)
 		return (0);
 	if (render_player(game) != 1)
 		return (0);
-	if (render_exit(game) != 1)
-		return (0);
+	if (game->coins == 3)
+	{
+		if (render_exit(game) != 1)
+			return (0);
+	}
+	mlx_key_hook(game->mlx, handle_key, &game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
 	return (1);

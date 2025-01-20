@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:15:03 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/20 16:03:15 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:30:07 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_game
 	int			cols;
 	int			player_x;
 	int			player_y;
+	int			coins;
 }	t_game;
 
 //map_checks2.c
@@ -110,5 +111,8 @@ int			start_game(t_game *game);
 //make_images.c
 mlx_image_t	*create_image(t_game *game, char asset);
 char		*check_asset(char asset);
+
+//player_movmets.c
+void		handle_key(mlx_key_data_t keydata, void *param, t_game *game);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:09:53 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/20 16:01:55 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:11:15 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ int	render_floor(t_game *game)
 		x = 0;
 		while (x < game->cols)
 		{
-			if (game->map[y][x] == '0')
+			if (game->map[y][x] == '0' || \
+			(game->map[y][x] == 'E' && game->coins < 3))
 			{
 				if (mlx_image_to_window(game->mlx, game->floor_image, \
 				x * TILE_SIZE, y * TILE_SIZE) < 0)
@@ -107,7 +108,7 @@ int	render_coin(t_game *game)
 		x = 0;
 		while (x < game->cols)
 		{
-			if (game->map[y][x] == 'C')
+			if (game->map[y][x] == 'C' && game->coins == 3)
 			{
 				if (mlx_image_to_window(game->mlx, game->coin_image, \
 				x * TILE_SIZE, y * TILE_SIZE) < 0)

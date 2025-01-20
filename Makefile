@@ -7,6 +7,7 @@ SRCS =  src/so_long.c \
 	src/ft_error.c \
 	src/renders.c \
 	src/make_images.c \
+	src/player_movmeents.c \
 
 OBJS = ${SRCS:.c=.o}
 
