@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:15:03 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/20 17:50:02 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:53:14 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,35 +21,43 @@
 
 # define TILE_SIZE 32
 
-//Mensajes de error
-# define ARGV_MISSING "ERROR\nDebes introducir el mapa como argumento.\n"
-# define MLX_INIT "ERROR\nAl intentar inicializar MLX.\n"
-# define READING_MAP "ERROR\nLeyendo el mapa.\n"
-# define INVALID_CHARS "ERROR\nCaracteres invalidos en el mapa.\n"
-# define NOT_RECTANGUALR "ERROR\nEl mapa debe ser rectangular.\n"
-# define NOT_CLOSED "ERROR\nEl mapa debe estar cerrado.\n"
-# define NOT_EXIT "ERROR\nEl mapa debe contener una salida\n"
-# define NOT_POSITION "ERROR\nEl mapa debe contener una posicion de salida\n"
-# define NOT_COLECTIONABLES "ERROR\nEl mapa debe tener un colceccionable\n"
-# define FILE_EXTENSION "ERROR\nLa extension del mapa debe ser .ber\n"
-# define NO_ACCESIBLE "ERROR\nLa salida no es accesible.\n"
-# define INIT_MLX "ERROR\nInicalizando MLX.\n"
-# define WALL_TEXTURE_LOAD "ERROR\nCargando la textura del muro.\n"
-# define CREATE_WALL_IMG "ERROR\nCreando la imagen del muro.\n"
-# define DRAW_WALL "ERROR\nDibujando la imagen del muro.\n"
-# define FLOOR_TEXTURE_LOAD "ERROR\nCargando la textura del suelo.\n"
-# define CREATE_FLOOR_IMG "ERROR\nCreando la imagen del suelo.\n"
-# define DRAW_FLOOR "ERROR\nDibujando la imagen del suelo.\n"
-# define COIN_TEXTURE_LOAD "ERROR\nCargando la textura de la moneda.\n"
-# define CREATE_COIN_IMG "ERROR\nCreando la imagen de la moneda.\n"
-# define DRAW_COIN "ERROR\nDibujando la imagen de la moneda.\n"
-# define PLAYER_TEXTURE_LOAD "ERROR\nCargando la textura del jugador.\n"
-# define CREATE_PLAYER_IMG "ERROR\nCreando la imagen del jugador.\n"
-# define DRAW_PLAYER "ERROR\nDibujando la imagen del jugador.\n"
-# define EXIT_TEXTURE_LOAD "ERROR\nCargando la textura de la salida.\n"
-# define CREATE_EXIT_IMG "ERROR\nCreando la imagen de la salida.\n"
-# define DRAW_EXIT "ERROR\nDibujando la imagen de la salida.\n"
+//Error Messages
+# define ARGV_MISSING "ERROR\nYou must provide the map as an argument.\n"
+# define MLX_INIT "ERROR\nFailed to initialize MLX.\n"
+# define READING_MAP "ERROR\nError reading the map.\n"
+# define INVALID_CHARS "ERROR\nInvalid characters in the map.\n"
+# define NOT_RECTANGUALR "ERROR\nThe map must be rectangular.\n"
+# define NOT_CLOSED "ERROR\nThe map must be closed.\n"
+# define NOT_EXIT "ERROR\nThe map must contain an exit.\n"
+# define NOT_POSITION "ERROR\nThe map must contain a starting position.\n"
+# define NOT_COLECTIONABLES "ERROR\nThe map must have at least \
+	one collectible.\n"
+# define FILE_EXTENSION "ERROR\nThe map file extension must be .ber.\n"
+# define NO_ACCESIBLE "ERROR\nThe exit is not accessible.\n"
+# define INIT_MLX "ERROR\nError initializing MLX.\n"
+# define WALL_TEXTURE_LOAD "ERROR\nFailed to load the wall texture.\n"
+# define CREATE_WALL_IMG "ERROR\nFailed to create the wall image.\n"
+# define DRAW_WALL "ERROR\nFailed to draw the wall image.\n"
+# define FLOOR_TEXTURE_LOAD "ERROR\nFailed to load the floor texture.\n"
+# define CREATE_FLOOR_IMG "ERROR\nFailed to create the floor image.\n"
+# define DRAW_FLOOR "ERROR\nFailed to draw the floor image.\n"
+# define COIN_TEXTURE_LOAD "ERROR\nFailed to load the coin texture.\n"
+# define CREATE_COIN_IMG "ERROR\nFailed to create the coin image.\n"
+# define DRAW_COIN "ERROR\nFailed to draw the coin image.\n"
+# define PLAYER_TEXTURE_LOAD "ERROR\nFailed to load the player texture.\n"
+# define CREATE_PLAYER_IMG "ERROR\nFailed to create the player image.\n"
+# define DRAW_PLAYER "ERROR\nFailed to draw the player image.\n"
+# define EXIT_TEXTURE_LOAD "ERROR\nFailed to load the exit texture.\n"
+# define CREATE_EXIT_IMG "ERROR\nFailed to create the exit image.\n"
+# define DRAW_EXIT "ERROR\nFailed to draw the exit image.\n"
+# define MENU_TEXTURE_LOAD "ERROR\nFailed to load the menu texture.\n"
+# define CREATE_MENU_IMG "ERROR\nFailed to create the menu image.\n"
+# define DRAW_MENU "ERROR\nFailed to draw the menu image.\n"
+# define ENEMY_TEXTURE_LOAD "ERROR\nFailed to load the enemy texture.\n"
+# define CREATE_ENEMY_IMG "ERROR\nFailed to create the enemy image.\n"
+# define DRAW_ENEMY "ERROR\nFailed to draw the enemy image.\n"
 
+// Strucutre
 typedef struct s_game
 {
 	mlx_t		*mlx;
@@ -58,13 +66,17 @@ typedef struct s_game
 	mlx_image_t	*coin_image;
 	mlx_image_t	*exit_image;
 	mlx_image_t	*player_image;
+	mlx_image_t	*menu_image;
+	mlx_image_t	*enemy_image;
 	char		**map;
 	char		**map_copy;
 	int			rows;
 	int			cols;
 	int			player_x;
 	int			player_y;
+	int			moves;
 	int			coins;
+	int			total_coins;
 }	t_game;
 
 //map_checks2.c
@@ -91,6 +103,7 @@ int			map_checks(t_game *game, char *file_name);
 //utils.c
 void		free_map(t_game *game);
 void		free_map_copy(t_game *game);
+int			cont_coins(t_game *game);
 
 //ft_error.c
 int			ft_error(int i);
@@ -103,19 +116,27 @@ int			render_walls(t_game *game);
 int			render_floor(t_game *game);
 int			render_coin(t_game *game);
 int			render_player(t_game *game);
-int			render_exit(t_game *game);
+void		render_exit(t_game *game);
 
 //so_long.c
 int			start_game(t_game *game);
+void		init_game_struct(t_game *game);
 
 //make_images.c
 mlx_image_t	*create_image(t_game *game, char asset);
 char		*check_asset(char asset);
 
 //player_movmets.c
-void		handle_key(mlx_key_data_t keydata, void *param);
-int			get_player_pos_x(t_game *game);
-int			get_player_pos_y(t_game *game);
-int			check_player_pos(t_game *game);
+void		handle_player_move(mlx_key_data_t keydata, void *param);
+void		init_player_position(t_game *game);
+void		process_player_move(t_game *game, int new_x, int new_y);
+void		is_coin(t_game *game);
+
+//display_game_info.c
+int			render_menu(t_game *game);
+void		update_game_info(t_game *game);
+
+//enemy.c
+int			render_enemy(t_game *game);
 
 #endif

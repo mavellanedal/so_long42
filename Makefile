@@ -8,6 +8,8 @@ SRCS =  src/so_long.c \
 	src/renders.c \
 	src/make_images.c \
 	src/player_movments.c \
+	src/display_game_info.c \
+	src/enemy.c \
 
 OBJS = ${SRCS:.c=.o}
 

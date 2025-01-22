@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:09:53 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/20 17:24:52 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/22 15:56:49 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,14 +121,14 @@ int	render_coin(t_game *game)
 	return (1);
 }
 
-int	render_exit(t_game *game)
+void	render_exit(t_game *game)
 {
 	int				x;
 	int				y;
 
 	game->exit_image = create_image(game, 'e');
 	if (!game->exit_image)
-		return (0);
+		ft_printf(CREATE_EXIT_IMG);
 	y = 0;
 	while (y < game->rows)
 	{
@@ -139,11 +139,10 @@ int	render_exit(t_game *game)
 			{
 				if (mlx_image_to_window(game->mlx, game->exit_image, \
 				x * TILE_SIZE, y * TILE_SIZE) < 0)
-					return (ft_error2(15));
+					ft_printf(DRAW_EXIT);
 			}
 			x++;
 		}
 		y++;
 	}
-	return (1);
 }

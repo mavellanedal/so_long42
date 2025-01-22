@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:48:01 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/20 15:55:48 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:40:00 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,18 @@ int	ft_error3(int i)
 		return (ft_printf(CREATE_EXIT_IMG));
 	else if (i == 27)
 		return (ft_printf(DRAW_EXIT));
+	else if (i == 28)
+		return (ft_printf(MENU_TEXTURE_LOAD));
+	else if (i == 29)
+		return (ft_printf(CREATE_MENU_IMG));
+	else if (i == 30)
+		return (ft_printf(DRAW_MENU));
+	else if (i == 31)
+		return (ft_printf(ENEMY_TEXTURE_LOAD));
+	else if (i == 32)
+		return (ft_printf(CREATE_ENEMY_IMG));
+	else if (i == 33)
+		return (ft_printf(DRAW_ENEMY));
 	return (0);
 }
 
@@ -96,6 +108,13 @@ int	check_error(char asset, int i)
 			return (ft_error2(16));
 		else if (i == 2)
 			return (ft_error2(17));
+	}
+	else if (asset == 'm')
+	{
+		if (i == 1)
+			return (ft_error2(29));
+		else if (i == 2)
+			return (ft_error2(30));
 	}
 	return (0);
 }
@@ -116,12 +135,12 @@ int	check_error2(char asset, int i)
 		else if (i == 2)
 			return (ft_error2(23));
 	}
-	else if (asset == 'e')
+	else if (asset == 'v')
 	{
 		if (i == 1)
-			return (ft_error3(25));
+			return (ft_error3(31));
 		else if (i == 2)
-			return (ft_error3(26));
+			return (ft_error3(32));
 	}
 	return (0);
 }

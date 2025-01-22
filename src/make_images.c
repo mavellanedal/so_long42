@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:30:49 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/20 17:02:15 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:39:37 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ mlx_image_t	*create_image(t_game *game, char asset)
 	image = mlx_texture_to_image(game->mlx, texture);
 	mlx_delete_texture(texture);
 	if (!image)
-	{
-		check_error(asset, 2);
 		return (NULL);
-	}
 	return (image);
 }
 
@@ -47,5 +44,9 @@ char	*check_asset(char asset)
 		return ("assets/harryPotter.png");
 	else if (asset == 'e')
 		return ("assets/door.png");
+	else if (asset == 'm')
+		return ("assets/MenuNormalSize.png");
+	else if (asset == 'v')
+		return ("assets/voldemort.png");
 	return (NULL);
 }

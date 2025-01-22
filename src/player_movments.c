@@ -6,97 +6,95 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 16:21:32 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/20 17:55:18 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:47:24 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int	check_player_pos(t_game *game)
+void	init_player_position(t_game *game)
 {
-	int	player_x;
-	int	player_y;
+	int	y;
+	int	x;
 
-	player_x = get_player_pos_x(game);
-	player_y = get_player_pos_y(game);
-	if (game->map[player_x][player_y] == '1')
-		return (0);
-	else if (game->map[game->player_x][game->player_y] == 'C')
-		game->coins ++;
-	return (1);
+	y = 0;
+	while (y < game->rows)
+	{
+		x = 0;
+		while (x < game->cols)
+		{
+			if (game->map[y][x] == 'P')
+			{
+				game->player_x = x;
+				game->player_y = y;
+				return ;
+			}
+			x++;
+		}
+		y++;
+	}
 }
 
-void	handle_key(mlx_key_data_t keydata, void *param)
+void	is_coin(t_game *game)
+{
+	game->coins ++;
+	if (game->coins == game->total_coins)
+		render_exit(game);
+}
+
+void	process_player_move(t_game *game, int new_x, int new_y)
+{
+	int	past_x;
+	int	past_y;
+
+	if (new_x < 0 || new_x >= game->cols || new_y < 0 || new_y >= game->rows)
+		return ;
+	past_x = game->player_x;
+	past_y = game->player_y;
+	if (game->map[new_y][new_x] != '1')
+	{
+		if (game->map[new_y][new_x] == 'C')
+			is_coin(game);
+		if (game->map[new_y][new_x] == 'M' || game->map[new_y][new_x] == 'E')
+			mlx_close_window(game->mlx);
+		game->map[game->player_y][game->player_x] = '0';
+		game->map[new_y][new_x] = 'P';
+		mlx_image_to_window(game->mlx, game->player_image, new_x * \
+		TILE_SIZE, new_y * TILE_SIZE);
+		mlx_image_to_window(game->mlx, game->floor_image, past_x * \
+		TILE_SIZE, past_y * TILE_SIZE);
+		game->player_x = new_x;
+		game->player_y = new_y;
+		game->moves++;
+		update_game_info(game);
+	}
+
+}
+
+void	handle_player_move(mlx_key_data_t keydata, void *param)
 {
 	t_game	*game;
-	int		prev_x;
-	int		prev_y;
+	int		new_x;
+	int		new_y;
+	int		past_x;
+	int		past_y;
 
-	game = (t_game *) param;
-	prev_x = game->player_x;
-	prev_y = game->player_y;
-	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
-	{
-		prev_x = game->player_x;
-		prev_y = game->player_y;
-		if (keydata.key == MLX_KEY_W)
-			game->player_y -= 32;
-		else if (keydata.key == MLX_KEY_S)
-			game->player_y += 32;
-		else if (keydata.key == MLX_KEY_A)
-			game->player_x -= 32;
-		else if (keydata.key == MLX_KEY_D)
-			game->player_x += 32;
-	}
-	if (check_player_pos(game))
-	{
-		mlx_image_to_window(game->mlx, game->floor_image, prev_x, prev_y);
-		mlx_image_to_window(game->mlx, game->player_image, \
-		game->player_x, game->player_y);
-	}
-	else
-	{
-		game->player_x = prev_x;
-		game->player_y = prev_y;
-	}
+	game = (t_game *)param;
+	new_x = game->player_x;
+	new_y = game->player_y;
+	past_y = game->player_y;
+	past_x = game->player_x;
+
+	if (keydata.key == MLX_KEY_W)
+		new_y--;
+	else if (keydata.key == MLX_KEY_S)
+		new_y++;
+	else if (keydata.key == MLX_KEY_A)
+		new_x--;
+	else if (keydata.key == MLX_KEY_D)
+		new_x++;
+	if (keydata.key == MLX_KEY_ESCAPE)
+		mlx_close_window(game->mlx);
+	process_player_move(game, new_x, new_y);
 }
 
-int	get_player_pos_x(t_game *game)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	while (x < game->rows)
-	{
-		y = 0;
-		while (y < game->cols)
-		{
-			if (game->map[x][y] == 'P')
-				return (x * TILE_SIZE);
-			y++;
-		}
-		x++;
-	}
-	return (0);
-}
-
-int	get_player_pos_y(t_game *game)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	while (x < game->rows)
-	{
-		y = 0;
-		while (y < game->cols)
-		{
-			if (game->map[x][y] == 'P')
-				return (y * TILE_SIZE);
-			y++;
-		}
-		x++;
-	}
-	return (0);
-}

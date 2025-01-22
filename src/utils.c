@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:55:55 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/20 15:55:50 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:54:29 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,26 @@ void	free_map_copy(t_game *game)
 	}
 	free(game->map_copy);
 	game->map_copy = NULL;
+}
+
+int	cont_coins(t_game *game)
+{
+	int	i;
+	int	j;
+	int	cont;
+
+	i = 0;
+	cont = 0;
+	while (game->map[i])
+	{
+		j = 0;
+		while (game->map[i][j])
+		{
+			if (game->map[i][j] == 'C')
+				cont++;
+			j++;
+		}
+		i++;
+	}
+	return (cont);
 }
