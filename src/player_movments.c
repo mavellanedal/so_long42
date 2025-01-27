@@ -6,95 +6,88 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 16:21:32 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/22 16:47:24 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/27 17:34:48 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	init_player_position(t_game *game)
+void	check_enemies(t_game *game, int px, int py)
 {
-	int	y;
-	int	x;
+	if (game->enemy_image->instances[0].x == px \
+	&& game->enemy_image->instances[0].y == py \
+	&& game->enemy_image->instances[0].enabled)
+		mlx_close_window(game->mlx);
+	if (game->enemy_image->instances[1].x == px \
+	&& game->enemy_image->instances[1].y == py \
+	&& game->enemy_image->instances[1].enabled)
+		mlx_close_window(game->mlx);
+}
 
-	y = 0;
-	while (y < game->rows)
+void	check_exit(t_game *game, int px, int py)
+{
+	if (game->exit_image->instances[0].x == px \
+	&& game->exit_image->instances[0].y == py \
+	&& game->exit_image->instances[0].enabled)
+		mlx_close_window(game->mlx);
+}
+
+void	check_coins(t_game *game, int px, int py)
+{
+	int	i;
+
+	i = 0;
+	while (i < game->total_coins)
 	{
-		x = 0;
-		while (x < game->cols)
+		if (game->coin_image->instances[i].x == px && \
+		game->coin_image->instances[i].y == py && \
+		game->coin_image->instances[i].enabled)
 		{
-			if (game->map[y][x] == 'P')
-			{
-				game->player_x = x;
-				game->player_y = y;
-				return ;
-			}
-			x++;
+			game->coin_image->instances[i].enabled = false;
+			game->coins++;
+			if (game->coins == game->total_coins)
+				game->exit_image->instances[0].enabled = true;
+			ft_printf("El jugador lleva %d moneda\n", game->coins);
 		}
-		y++;
+		i++;
 	}
 }
 
-void	is_coin(t_game *game)
+void	move_player(t_game *game, int dx, int dy)
 {
-	game->coins ++;
-	if (game->coins == game->total_coins)
-		render_exit(game);
-}
+	int	new_x;
+	int	new_y;
 
-void	process_player_move(t_game *game, int new_x, int new_y)
-{
-	int	past_x;
-	int	past_y;
-
-	if (new_x < 0 || new_x >= game->cols || new_y < 0 || new_y >= game->rows)
+	new_x = game->player_image->instances[0].x + dx * TILE_SIZE;
+	new_y = game->player_image->instances[0].y + dy * TILE_SIZE;
+	if (game->map[new_y / TILE_SIZE][new_x / TILE_SIZE] == '1')
 		return ;
-	past_x = game->player_x;
-	past_y = game->player_y;
-	if (game->map[new_y][new_x] != '1')
-	{
-		if (game->map[new_y][new_x] == 'C')
-			is_coin(game);
-		if (game->map[new_y][new_x] == 'M' || game->map[new_y][new_x] == 'E')
-			mlx_close_window(game->mlx);
-		game->map[game->player_y][game->player_x] = '0';
-		game->map[new_y][new_x] = 'P';
-		mlx_image_to_window(game->mlx, game->player_image, new_x * \
-		TILE_SIZE, new_y * TILE_SIZE);
-		mlx_image_to_window(game->mlx, game->floor_image, past_x * \
-		TILE_SIZE, past_y * TILE_SIZE);
-		game->player_x = new_x;
-		game->player_y = new_y;
-		game->moves++;
-		update_game_info(game);
-	}
-
+	game->player_image->instances[0].x = new_x;
+	game->player_image->instances[0].y = new_y;
+	check_coins(game, new_x, new_y);
+	check_exit(game, new_x, new_y);
+	check_enemies(game, new_x, new_y);
+	update_enemy_instances(game);
+	game->moves++;
 }
 
 void	handle_player_move(mlx_key_data_t keydata, void *param)
 {
 	t_game	*game;
-	int		new_x;
-	int		new_y;
-	int		past_x;
-	int		past_y;
 
 	game = (t_game *)param;
-	new_x = game->player_x;
-	new_y = game->player_y;
-	past_y = game->player_y;
-	past_x = game->player_x;
 
-	if (keydata.key == MLX_KEY_W)
-		new_y--;
-	else if (keydata.key == MLX_KEY_S)
-		new_y++;
-	else if (keydata.key == MLX_KEY_A)
-		new_x--;
-	else if (keydata.key == MLX_KEY_D)
-		new_x++;
-	if (keydata.key == MLX_KEY_ESCAPE)
-		mlx_close_window(game->mlx);
-	process_player_move(game, new_x, new_y);
+	if (keydata.action == MLX_PRESS)
+	{
+		if (keydata.key == MLX_KEY_W)
+			move_player(game, 0, -1);
+		else if (keydata.key == MLX_KEY_S)
+			move_player(game, 0, 1);
+		else if (keydata.key == MLX_KEY_A)
+			move_player(game, -1, 0);
+		else if (keydata.key == MLX_KEY_D)
+			move_player(game, 1, 0);
+		if (keydata.key == MLX_KEY_ESCAPE)
+			mlx_close_window(game->mlx);
+	}
 }
-

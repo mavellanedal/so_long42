@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:09:53 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/22 15:56:49 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/27 17:04:43 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ int	render_floor(t_game *game)
 		x = 0;
 		while (x < game->cols)
 		{
-			if (game->map[y][x] == '0' || \
-			(game->map[y][x] == 'E' && game->coins < 3))
+			if (game->map[y][x] != '1')
 			{
 				if (mlx_image_to_window(game->mlx, game->floor_image, \
 				x * TILE_SIZE, y * TILE_SIZE) < 0)
@@ -121,28 +120,17 @@ int	render_coin(t_game *game)
 	return (1);
 }
 
-void	render_exit(t_game *game)
+int	render_exit(t_game *game)
 {
-	int				x;
-	int				y;
+	int	i;
 
+	i = 0;
 	game->exit_image = create_image(game, 'e');
 	if (!game->exit_image)
-		ft_printf(CREATE_EXIT_IMG);
-	y = 0;
-	while (y < game->rows)
-	{
-		x = 0;
-		while (x < game->cols)
-		{
-			if (game->map[y][x] == 'E' && game->coins == 3)
-			{
-				if (mlx_image_to_window(game->mlx, game->exit_image, \
-				x * TILE_SIZE, y * TILE_SIZE) < 0)
-					ft_printf(DRAW_EXIT);
-			}
-			x++;
-		}
-		y++;
-	}
+		return (0);
+	if (mlx_image_to_window(game->mlx, game->exit_image, \
+	game->exit_x * TILE_SIZE, game->exit_y * TILE_SIZE) < 0)
+		return (ft_error3(27));
+	game->exit_image->instances[0].enabled = false;
+	return (1);
 }

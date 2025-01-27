@@ -6,10 +6,12 @@ SRCS =  src/so_long.c \
 	src/utils.c \
 	src/ft_error.c \
 	src/renders.c \
+	src/renders2.c \
 	src/make_images.c \
 	src/player_movments.c \
 	src/display_game_info.c \
 	src/enemy.c \
+	src/animations.c \
 
 OBJS = ${SRCS:.c=.o}
 

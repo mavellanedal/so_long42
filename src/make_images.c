@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:30:49 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/22 16:39:37 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:04:23 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,12 @@ mlx_image_t	*create_image(t_game *game, char asset)
 	texture = mlx_load_png(path);
 	if (!texture)
 	{
-		check_error(asset, 1);
+		if (asset == 'w' || asset == 'f' || asset == 'm')
+			check_error(asset, 1);
+		if (asset == 'c' || asset == 'p' || asset == 'v')
+			check_error2(asset, 1);
+		else
+			ft_printf(CREATE_STAR_IMG);
 		return (NULL);
 	}
 	image = mlx_texture_to_image(game->mlx, texture);
@@ -48,5 +53,13 @@ char	*check_asset(char asset)
 		return ("assets/MenuNormalSize.png");
 	else if (asset == 'v')
 		return ("assets/voldemort.png");
+	else if (asset == 's')
+		return ("assets/star.png");
+	else if (asset == 'l')
+		return ("assets/vela1.png");
+	else if (asset == 'u')
+		return ("assets/vela2.png");
+	else if (asset == 't')
+		return ("assets/vela3.png");
 	return (NULL);
 }

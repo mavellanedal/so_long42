@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:15:03 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/22 16:53:14 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/27 18:13:52 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,45 @@
 # define ENEMY_TEXTURE_LOAD "ERROR\nFailed to load the enemy texture.\n"
 # define CREATE_ENEMY_IMG "ERROR\nFailed to create the enemy image.\n"
 # define DRAW_ENEMY "ERROR\nFailed to draw the enemy image.\n"
+# define STAR_TEXTURE_LOAD "ERROR\nFailed to load the star texture.\n"
+# define CREATE_STAR_IMG "ERROR\nFailed to create the star image.\n"
+# define DRAW_STAR "ERROR\nFailed to draw the star image.\n"
 
-// Strucutre
+// Strucutres
+typedef struct s_pos
+{
+	int	x;
+	int	y;
+}	t_pos;
+typedef struct s_enemy
+{
+	int	past_x;
+	int	past_y;
+	int	x;
+	int	y;
+}	t_enemy;
+
+typedef struct s_stars
+{
+	int	x;
+	int	y;
+	int	visible;
+}	t_star;
+
 typedef struct s_game
 {
 	mlx_t		*mlx;
 	mlx_image_t	*wall_image;
 	mlx_image_t	*floor_image;
 	mlx_image_t	*coin_image;
+	mlx_image_t	*animation_image1;
+	mlx_image_t	*animation_image2;
+	mlx_image_t	*animation_image3;
 	mlx_image_t	*exit_image;
 	mlx_image_t	*player_image;
 	mlx_image_t	*menu_image;
 	mlx_image_t	*enemy_image;
+	t_pos		enemies[2];
 	char		**map;
 	char		**map_copy;
 	int			rows;
@@ -77,66 +104,95 @@ typedef struct s_game
 	int			moves;
 	int			coins;
 	int			total_coins;
+	int			enemy_count;
+	int			exit_x;
+	int			exit_y;
 }	t_game;
 
 //map_checks2.c
-char		**read_map(const char *path, t_game *game);
-int			process_lines(int fd, t_game *game);
-int			check_file_extension(char *file_name);
-int			is_initial_pos(t_game *game);
-int			is_colectionables(t_game *game);
+char			**read_map(const char *path, t_game *game);
+int				process_lines(int fd, t_game *game);
+int				check_file_extension(char *file_name);
+int				is_initial_pos(t_game *game);
+int				is_colectionables(t_game *game);
 
 //map_checks3.c
-int			count_lines(const char *path);
-int			is_valid_chars(t_game *game);
-int			is_exit(t_game *game);
-int			is_rectangular(t_game *game);
-int			is_closed(t_game *game);
+int				count_lines(const char *path);
+int				is_valid_chars(t_game *game);
+int				is_exit(t_game *game);
+int				is_rectangular(t_game *game);
+int				is_closed(t_game *game);
+
+//map_checks4.c
+int				find_exit_y(t_game *game);
+int				find_exit_x(t_game *game);
 
 //map_checks.c
-int			flood_fill(t_game *game, int x, int y);
-int			find_player_position(t_game *game);
-char		**copy_map(char **map, int rows);
-int			is_accesible(t_game *game);
-int			map_checks(t_game *game, char *file_name);
+int				flood_fill(t_game *game, int x, int y);
+int				find_player_position(t_game *game);
+char			**copy_map(char **map, int rows);
+int				is_accesible(t_game *game);
+int				map_checks(t_game *game, char *file_name);
 
 //utils.c
-void		free_map(t_game *game);
-void		free_map_copy(t_game *game);
-int			cont_coins(t_game *game);
+void			free_map(t_game *game);
+void			free_map_copy(t_game *game);
+int				cont_coins(t_game *game);
+void			update_enemy_instances(t_game *game);
 
 //ft_error.c
-int			ft_error(int i);
-int			ft_error2(int i);
-int			check_error(char asset, int i);
-int			check_error2(char asset, int i);
+int				ft_error(int i);
+int				ft_error2(int i);
+int				ft_error3(int i);
+int				check_error(char asset, int i);
+int				check_error2(char asset, int i);
 
 //renders.c
-int			render_walls(t_game *game);
-int			render_floor(t_game *game);
-int			render_coin(t_game *game);
-int			render_player(t_game *game);
-void		render_exit(t_game *game);
+int				render_walls(t_game *game);
+int				render_floor(t_game *game);
+int				render_coin(t_game *game);
+int				render_coin2(t_game *game);
+int				render_coin3(t_game *game);
+int				render_player(t_game *game);
+int				render_exit(t_game *game);
+
+//renders2.c
+int				render_animation1(t_game *game);
+int				render_animation2(t_game *game);
+int				render_animation3(t_game *game);
 
 //so_long.c
-int			start_game(t_game *game);
-void		init_game_struct(t_game *game);
+int				start_game(t_game *game);
+void			init_game_struct(t_game *game);
 
 //make_images.c
-mlx_image_t	*create_image(t_game *game, char asset);
-char		*check_asset(char asset);
+mlx_image_t		*create_image(t_game *game, char asset);
+char			*check_asset(char asset);
 
 //player_movmets.c
-void		handle_player_move(mlx_key_data_t keydata, void *param);
-void		init_player_position(t_game *game);
-void		process_player_move(t_game *game, int new_x, int new_y);
-void		is_coin(t_game *game);
+void			check_enemies(t_game *game, int px, int py);
+void			check_exit(t_game *game, int px, int py);
+void			check_coins(t_game *game, int px, int py);
+void			move_player(t_game *game, int dx, int dy);
+void			handle_player_move(mlx_key_data_t keydata, void *param);
 
 //display_game_info.c
-int			render_menu(t_game *game);
-void		update_game_info(t_game *game);
+int				render_menu(t_game *game);
+void			update_game_info(t_game *game);
+void			set_ppsitions(t_game *game, int new_x, int new_y);
 
 //enemy.c
-int			render_enemy(t_game *game);
+void			move_enemy_instances(t_game *game, int instance_index);
+int				render_enemies(t_game *game);
+void			place_enemies(t_game *game);
+void			find_empty_positions(t_game *game, t_pos *positions);
+int				count_empty_positions(t_game *game);
+
+//animations.c
+void			blink_player(void *param);
+void			stop_animation(t_game *game);
+void			animation(t_game *game);
+void			hook_loop(void *param);
+int				check_if_animation(t_game *game);
 
 #endif
