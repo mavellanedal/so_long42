@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 17:19:01 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/28 11:02:43 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:33:25 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	generate_random_position(t_game *game, int *x, int *y)
 	{
 		*x = (rand() % game->cols);
 		*y = (rand() % game->rows);
-		if (game->map[*y][*x] == '0' && *x != game->player_image->instances[0].x \
+		if (game->map[*y][*x] == '0' && *x \
+		!= game->player_image->instances[0].x
 		/ TILE_SIZE && *y != game->player_image->instances[0].y / TILE_SIZE \
 		&& *x != game->enemies[0].x / TILE_SIZE \
 		&& *y != game->enemies[0].y / TILE_SIZE \
@@ -41,7 +42,7 @@ int	render_animation1(t_game *game)
 	game->animation_image1 = create_image(game, 'l');
 	if (!game->animation_image1)
 		return (0);
-	generate_random_position(game, &x, &y);;
+	generate_random_position(game, &x, &y);
 	if (mlx_image_to_window(game->mlx, game->animation_image1, \
 	x * TILE_SIZE, y * TILE_SIZE) < 0)
 		return (ft_error2(15));

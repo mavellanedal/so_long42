@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:15:03 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/28 11:15:05 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:26:14 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@
 # define STAR_TEXTURE_LOAD "ERROR\nFailed to load the star texture.\n"
 # define CREATE_STAR_IMG "ERROR\nFailed to create the star image.\n"
 # define DRAW_STAR "ERROR\nFailed to draw the star image.\n"
+# define FILE_EMPTY "ERROR\nThe file is empty.\n"
 
 // Strucutres
 typedef struct s_pos
@@ -143,6 +144,7 @@ void			free_map(t_game *game);
 void			free_map_copy(t_game *game);
 int				cont_coins(t_game *game);
 void			update_enemy_instances(t_game *game);
+void			free_images(t_game *game);
 
 //ft_error.c
 int				ft_error(int i);
@@ -168,7 +170,7 @@ int				render_animation3(t_game *game);
 //so_long.c
 int				count_columns(char **map);
 int				start_game(t_game *game);
-void			init_game_struct(t_game *game);
+int				init_game_struct(t_game *game);
 
 //make_images.c
 mlx_image_t		*create_image(t_game *game, char asset);
@@ -187,9 +189,13 @@ void			update_game_info(t_game *game);
 void			set_ppsitions(t_game *game, int new_x, int new_y);
 
 //enemy.c
+int				check_if_valid_pos(t_game *game, int *new_y, int *new_x, \
+	int enemy_index);
+int				new_enemy_position(t_game *game, int index, int *new_x, \
+	int *new_y);
 void			move_enemy_instances(t_game *game);
+int				init_enemy_pos(t_game *game, t_pos *enemy);
 int				render_enemies(t_game *game);
-void			place_enemies(t_game *game);
 
 //animations.c
 void			blink_player(void *param);

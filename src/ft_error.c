@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:48:01 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/22 16:40:00 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:58:52 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ int	ft_error3(int i)
 		return (ft_printf(CREATE_ENEMY_IMG));
 	else if (i == 33)
 		return (ft_printf(DRAW_ENEMY));
+	else if (i == 34)
+		return (ft_printf(FILE_EMPTY));
 	return (0);
 }
 

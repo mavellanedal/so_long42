@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:55:55 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/28 11:06:58 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:37:49 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,20 @@ void	update_enemy_instances(t_game *game)
 {
 	move_enemy_instances(game);
 	move_enemy_instances(game);
+}
+
+void	free_images(t_game *game)
+{
+	if (game->player_image)
+		mlx_delete_image(game->mlx, game->player_image);
+	if (game->floor_image)
+		mlx_delete_image(game->mlx, game->floor_image);
+	if (game->wall_image)
+		mlx_delete_image(game->mlx, game->wall_image);
+	if (game->coin_image)
+		mlx_delete_image(game->mlx, game->coin_image);
+	if (game->exit_image)
+		mlx_delete_image(game->mlx, game->exit_image);
+	if (game->enemy_image)
+		mlx_delete_image(game->mlx, game->enemy_image);
 }

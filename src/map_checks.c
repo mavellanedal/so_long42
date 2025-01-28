@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 16:17:11 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/28 11:11:24 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:35:34 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,10 @@ int	map_checks(t_game *game, char *file_name)
 {
 	if (!check_file_extension(file_name))
 		return (ft_error(7));
+	if (is_valid_chars(game) == 2)
+		return (ft_error3(34));
 	if (!is_valid_chars(game))
 		return (ft_error(4));
-	if (!is_closed(game))
-		return (ft_error(6));
-	if (!is_rectangular(game))
-		return (ft_error(5));
 	if (!is_exit(game))
 		return (ft_error(8));
 	if (!is_accesible(game))
@@ -115,5 +113,9 @@ int	map_checks(t_game *game, char *file_name)
 		return (ft_error(9));
 	if (!is_initial_pos(game))
 		return (ft_error(10));
+	if (!is_rectangular(game))
+		return (ft_error(5));
+	if (!is_closed(game))
+		return (ft_error(6));
 	return (0);
 }

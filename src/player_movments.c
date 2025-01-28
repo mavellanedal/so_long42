@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 16:21:32 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/28 11:31:45 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:33:02 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	move_player(t_game *game, int dx, int dy)
 		update_enemy_instances(game);
 	}
 	game->moves++;
+	ft_printf("Moves: %d\n", game->moves);
+	update_game_info(game);
 }
 
 void	handle_player_move(mlx_key_data_t keydata, void *param)
@@ -78,7 +80,6 @@ void	handle_player_move(mlx_key_data_t keydata, void *param)
 	t_game	*game;
 
 	game = (t_game *)param;
-
 	if (keydata.action == MLX_PRESS)
 	{
 		if (keydata.key == MLX_KEY_W)
