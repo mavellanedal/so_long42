@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 16:21:32 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/27 17:34:48 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:31:45 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	check_coins(t_game *game, int px, int py)
 			game->coins++;
 			if (game->coins == game->total_coins)
 				game->exit_image->instances[0].enabled = true;
-			ft_printf("El jugador lleva %d moneda\n", game->coins);
 		}
 		i++;
 	}
@@ -66,8 +65,11 @@ void	move_player(t_game *game, int dx, int dy)
 	game->player_image->instances[0].y = new_y;
 	check_coins(game, new_x, new_y);
 	check_exit(game, new_x, new_y);
-	check_enemies(game, new_x, new_y);
-	update_enemy_instances(game);
+	if (game->enemy_count > 0)
+	{
+		check_enemies(game, new_x, new_y);
+		update_enemy_instances(game);
+	}
 	game->moves++;
 }
 

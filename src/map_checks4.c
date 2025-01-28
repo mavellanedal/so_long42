@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 14:27:54 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/23 15:27:23 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:22:32 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,3 +52,24 @@ int	find_exit_y(t_game *game)
 	return (0);
 }
 
+int	count_empty_positions(t_game *game)
+{
+	int	i;
+	int	j;
+	int	cont;
+
+	i = 0;
+	cont = 0;
+	while (game->map[i])
+	{
+		j = 0;
+		while (game->map[i][j])
+		{
+			if (game->map[i][j] == '0')
+				cont++;
+			j++;
+		}
+		i++;
+	}
+	return (cont);
+}

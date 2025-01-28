@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 12:58:30 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/21 15:40:02 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/28 09:59:31 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	**read_map(const char *path, t_game *game)
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (NULL);
-	game->rows = count_lines(path);
 	if (game->rows <= 0)
 		return (NULL);
 	game->map = malloc(sizeof(char *) * (game->rows + 1));

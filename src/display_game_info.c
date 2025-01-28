@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 17:37:31 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/27 18:08:55 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:31:37 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,8 @@ int	render_menu(t_game *game)
 void	update_game_info(t_game *game)
 {
 	char	*move_text;
-	char	*coin_text;
 
 	move_text = NULL;
-	coin_text = NULL;
 	move_text = ft_strjoin("Movements: ", ft_itoa(game->moves));
 	if (!move_text)
 		return ;

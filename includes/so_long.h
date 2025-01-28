@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:15:03 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/27 18:13:52 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:15:05 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include <time.h>
 
 # define TILE_SIZE 32
 
@@ -66,6 +67,7 @@ typedef struct s_pos
 	int	x;
 	int	y;
 }	t_pos;
+
 typedef struct s_enemy
 {
 	int	past_x;
@@ -90,6 +92,7 @@ typedef struct s_game
 	mlx_image_t	*animation_image1;
 	mlx_image_t	*animation_image2;
 	mlx_image_t	*animation_image3;
+	t_pos		animation_pos;
 	mlx_image_t	*exit_image;
 	mlx_image_t	*player_image;
 	mlx_image_t	*menu_image;
@@ -126,6 +129,7 @@ int				is_closed(t_game *game);
 //map_checks4.c
 int				find_exit_y(t_game *game);
 int				find_exit_x(t_game *game);
+int				count_empty_positions(t_game *game);
 
 //map_checks.c
 int				flood_fill(t_game *game, int x, int y);
@@ -162,6 +166,7 @@ int				render_animation2(t_game *game);
 int				render_animation3(t_game *game);
 
 //so_long.c
+int				count_columns(char **map);
 int				start_game(t_game *game);
 void			init_game_struct(t_game *game);
 
@@ -182,11 +187,9 @@ void			update_game_info(t_game *game);
 void			set_ppsitions(t_game *game, int new_x, int new_y);
 
 //enemy.c
-void			move_enemy_instances(t_game *game, int instance_index);
+void			move_enemy_instances(t_game *game);
 int				render_enemies(t_game *game);
 void			place_enemies(t_game *game);
-void			find_empty_positions(t_game *game, t_pos *positions);
-int				count_empty_positions(t_game *game);
 
 //animations.c
 void			blink_player(void *param);

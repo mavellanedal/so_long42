@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:55:55 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/27 18:09:09 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:06:58 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,6 @@ int	cont_coins(t_game *game)
 
 void	update_enemy_instances(t_game *game)
 {
-	move_enemy_instances(game, 0);
-	move_enemy_instances(game, 1);
+	move_enemy_instances(game);
+	move_enemy_instances(game);
 }

@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:35:49 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/27 17:53:28 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:09:31 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int	is_closed(t_game *game)
 
 	j = 0;
 	i = 0;
-	game->cols = ft_strlen(game->map[0]);
 	while (j < game->cols)
 	{
 		if (game->map[0][j] != '1' || game->map[game->rows - 1][j] != '1')

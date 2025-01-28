@@ -3,6 +3,7 @@ SRCS =  src/so_long.c \
 	src/map_checks.c \
 	src/map_checks2.c \
 	src/map_checks3.c \
+	src/map_checks4.c \
 	src/utils.c \
 	src/ft_error.c \
 	src/renders.c \

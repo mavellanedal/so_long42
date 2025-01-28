@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:09:53 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/27 17:04:43 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:02:27 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,8 @@ int	render_coin(t_game *game)
 
 int	render_exit(t_game *game)
 {
-	int	i;
-
-	i = 0;
+	game->exit_x = find_exit_x(game);
+	game->exit_y = find_exit_y(game);
 	game->exit_image = create_image(game, 'e');
 	if (!game->exit_image)
 		return (0);
