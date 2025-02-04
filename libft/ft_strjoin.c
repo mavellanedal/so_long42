@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mavellan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:09:32 by mavellan          #+#    #+#             */
-/*   Updated: 2024/10/03 16:59:24 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/30 13:15:12 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,3 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	res[i + j] = '\0';
 	return (res);
 }
-
-/*#include <stdio.h>
-int	main(void)
-{
-	printf("La cadena resultado es: %s", ft_strjoin("tripouille", "42"));
-}*/

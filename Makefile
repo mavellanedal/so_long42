@@ -1,18 +1,20 @@
 # Source files
 SRCS =  src/so_long.c \
-	src/map_checks.c \
-	src/map_checks2.c \
-	src/map_checks3.c \
-	src/map_checks4.c \
-	src/utils.c \
-	src/ft_error.c \
-	src/renders.c \
-	src/renders2.c \
-	src/make_images.c \
-	src/player_movments.c \
-	src/display_game_info.c \
+	src/bonus/animations.c \
+	src/bonus/display_game_info.c \
+	src/game_inits/game_init.c \
+	src/game_inits/game_ender.c \
+	src/game_inits/images_creators.c \
+	src/parsing/parser.c \
+	src/parsing/parsing1.c \
+	src/parsing/parsing2.c \
+	src/parsing/parsing3.c \
+	src/parsing/parsing4.c \
+	src/coins.c \
 	src/enemy.c \
-	src/animations.c \
+	src/ft_error.c \
+	src/player_movments.c \
+	src/renders.c \
 
 OBJS = ${SRCS:.c=.o}
 

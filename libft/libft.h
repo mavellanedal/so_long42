@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 17:04:48 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/16 14:35:00 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/02/03 13:11:08 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ char	*ft_strndup(const char *s, size_t n);
 char	*ft_sub_2(char **rest, char **line, char **buf);
 char	*ft_sub(char **rest, char **line);
 char	*get_next_line(int fd);
+void	ft_free(char **str);
+int		ft_array_count(char **ptr);
 
 typedef struct s_list
 {

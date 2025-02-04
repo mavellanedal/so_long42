@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:48:01 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/28 16:58:52 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/01/31 17:19:36 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,7 @@ int	ft_error(int i)
 	else if (i == 7)
 		return (ft_printf(FILE_EXTENSION));
 	else if (i == 8)
-		return (ft_printf(NOT_EXIT));
-	else if (i == 9)
-		return (ft_printf(NOT_COLECTIONABLES));
-	else if (i == 10)
-		return (ft_printf(NOT_POSITION));
+		return (ft_printf(NO_CORRECT_CONTENTS));
 	else if (i == 11)
 		return (ft_printf(NO_ACCESIBLE));
 	else if (i == 12)

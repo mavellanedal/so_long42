@@ -6,73 +6,62 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 16:21:32 by mavellan          #+#    #+#             */
-/*   Updated: 2025/01/28 16:33:02 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/02/04 10:27:27 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	check_enemies(t_game *game, int px, int py)
+void	move_up(t_game *game)
 {
-	if (game->enemy_image->instances[0].x == px \
-	&& game->enemy_image->instances[0].y == py \
-	&& game->enemy_image->instances[0].enabled)
-		mlx_close_window(game->mlx);
-	if (game->enemy_image->instances[1].x == px \
-	&& game->enemy_image->instances[1].y == py \
-	&& game->enemy_image->instances[1].enabled)
-		mlx_close_window(game->mlx);
-}
-
-void	check_exit(t_game *game, int px, int py)
-{
-	if (game->exit_image->instances[0].x == px \
-	&& game->exit_image->instances[0].y == py \
-	&& game->exit_image->instances[0].enabled)
-		mlx_close_window(game->mlx);
-}
-
-void	check_coins(t_game *game, int px, int py)
-{
-	int	i;
-
-	i = 0;
-	while (i < game->total_coins)
+	if (game->map[game->images->player_image->instances->y / TILE_SIZE - 1]
+	[game->images->player_image->instances->x / TILE_SIZE] != '1')
 	{
-		if (game->coin_image->instances[i].x == px && \
-		game->coin_image->instances[i].y == py && \
-		game->coin_image->instances[i].enabled)
-		{
-			game->coin_image->instances[i].enabled = false;
-			game->coins++;
-			if (game->coins == game->total_coins)
-				game->exit_image->instances[0].enabled = true;
-		}
-		i++;
+		game->images->player_image->instances->y -= TILE_SIZE;
+		game->moves++;
+		if (game->enemy_count != 0)
+			move_enemy(game);
+		ft_printf("Moves: %i\n", game->moves);
 	}
 }
 
-void	move_player(t_game *game, int dx, int dy)
+void	move_down(t_game *game)
 {
-	int	new_x;
-	int	new_y;
-
-	new_x = game->player_image->instances[0].x + dx * TILE_SIZE;
-	new_y = game->player_image->instances[0].y + dy * TILE_SIZE;
-	if (game->map[new_y / TILE_SIZE][new_x / TILE_SIZE] == '1')
-		return ;
-	game->player_image->instances[0].x = new_x;
-	game->player_image->instances[0].y = new_y;
-	check_coins(game, new_x, new_y);
-	check_exit(game, new_x, new_y);
-	if (game->enemy_count > 0)
+	if (game->map[game->images->player_image->instances->y / TILE_SIZE + 1]
+	[game->images->player_image->instances->x / TILE_SIZE] != '1')
 	{
-		check_enemies(game, new_x, new_y);
-		update_enemy_instances(game);
+		game->images->player_image->instances->y += TILE_SIZE;
+		game->moves++;
+		if (game->enemy_count != 0)
+			move_enemy(game);
+		ft_printf("Moves: %i\n", game->moves);
 	}
-	game->moves++;
-	ft_printf("Moves: %d\n", game->moves);
-	update_game_info(game);
+}
+
+void	move_left(t_game *game)
+{
+	if (game->map[game->images->player_image->instances->y / TILE_SIZE]
+	[game->images->player_image->instances->x / TILE_SIZE - 1] != '1')
+	{
+		game->images->player_image->instances->x -= TILE_SIZE;
+		game->moves++;
+		if (game->enemy_count != 0)
+			move_enemy(game);
+		ft_printf("Moves: %i\n", game->moves);
+	}
+}
+
+void	move_right(t_game *game)
+{
+	if (game->map[game->images->player_image->instances->y / TILE_SIZE]
+	[game->images->player_image->instances->x / TILE_SIZE + 1] != '1')
+	{
+		game->images->player_image->instances->x += TILE_SIZE;
+		game->moves++;
+		if (game->enemy_count != 0)
+			move_enemy(game);
+		ft_printf("Moves: %i\n", game->moves);
+	}
 }
 
 void	handle_player_move(mlx_key_data_t keydata, void *param)
@@ -80,17 +69,22 @@ void	handle_player_move(mlx_key_data_t keydata, void *param)
 	t_game	*game;
 
 	game = (t_game *)param;
-	if (keydata.action == MLX_PRESS)
-	{
-		if (keydata.key == MLX_KEY_W)
-			move_player(game, 0, -1);
-		else if (keydata.key == MLX_KEY_S)
-			move_player(game, 0, 1);
-		else if (keydata.key == MLX_KEY_A)
-			move_player(game, -1, 0);
-		else if (keydata.key == MLX_KEY_D)
-			move_player(game, 1, 0);
-		if (keydata.key == MLX_KEY_ESCAPE)
-			mlx_close_window(game->mlx);
-	}
+	if ((keydata.key == MLX_KEY_W && keydata.action == MLX_RELEASE)
+	|| (keydata.key == MLX_KEY_UP && keydata.action == MLX_RELEASE))
+		move_up(game);
+	if ((keydata.key == MLX_KEY_S && keydata.action == MLX_RELEASE)
+	|| (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_RELEASE))
+		move_down(game);
+	if ((keydata.key == MLX_KEY_A && keydata.action == MLX_RELEASE)
+	|| (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_RELEASE))
+		move_left(game);
+	if ((keydata.key == MLX_KEY_D && keydata.action == MLX_RELEASE)
+	|| (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_RELEASE))
+		move_right(game);
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
+		mlx_close_window(game->mlx);
+	ft_write_counter(game);
+	if (game->enemy_count != 0)
+		ft_enemy_detection(game);
+	ft_collector(game);
 }
