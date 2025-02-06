@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 16:33:27 by mavellan          #+#    #+#             */
-/*   Updated: 2025/02/04 08:54:09 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:33:11 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	animation(t_game *game)
 	static double	last_time = 0;
 	static int		status = 0;
 	double			current_time;
+
 	current_time = mlx_get_time();
 	if (current_time - last_time > 0.1)
 	{
-
 		game->images->animation1_image->instances->enabled = false;
 		game->images->animation2_image->instances->enabled = false;
 		game->images->animation3_image->instances->enabled = false;

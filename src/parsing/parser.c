@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:16:47 by mavellan          #+#    #+#             */
-/*   Updated: 2025/02/04 09:18:50 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:40:31 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	read_map(int fd, char **map, int *rows, int *cols)
 	trim = ft_read_trimmed_line(fd);
 	if (trim == NULL)
 	{
-		ft_printf("Error while trimming line\n");
 		free(trim);
 		ft_free(map);
 		return (-1);
@@ -89,15 +88,15 @@ char	**map_checks(char *path, int *rows, int *cols)
 	char	**map;
 
 	if (!ft_strnstr(path + (ft_strlen(path) - 4), ".ber", 4))
-		return (ft_error(7), NULL);
+		return (ft_error(5), NULL);
 	map = ft_calloc(1024, sizeof(char *));
 	if (!map)
-		return (ft_printf("ERROR\nThe map alloc has failed.\n"), NULL);
+		return (ft_error(10), NULL);
 	map = make_map(path, map, rows, cols);
 	if (!map)
 	{
 		ft_free(map);
-		return (ft_printf("ERROR\nWhile building map\n"), NULL);
+		return (ft_error(11), NULL);
 	}
 	invalid_map = ft_checker(map, *rows, *cols);
 	if (invalid_map)

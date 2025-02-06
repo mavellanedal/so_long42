@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:09:53 by mavellan          #+#    #+#             */
-/*   Updated: 2025/02/04 10:31:55 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:22:58 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,15 @@ void	ft_render_floor(t_game *game, t_images *image)
 		x = 0;
 		while (game->map[y][x])
 		{
-			mlx_image_to_window(game->mlx, image->floor_image, x * TILE_SIZE, y * TILE_SIZE);
+			mlx_image_to_window(game->mlx, image->floor_image, x \
+			* TILE_SIZE, y * TILE_SIZE);
 			if (game->map[y][x] == '1')
-				mlx_image_to_window(game->mlx, image->wall_image, x * TILE_SIZE, y * TILE_SIZE);
+				mlx_image_to_window(game->mlx, image->wall_image, x \
+				* TILE_SIZE, y * TILE_SIZE);
 			if (game->map[y][x] == 'E')
 			{
-				mlx_image_to_window(game->mlx, image->exit_image, x * TILE_SIZE, y * TILE_SIZE);
+				mlx_image_to_window(game->mlx, image->exit_image, x \
+				* TILE_SIZE, y * TILE_SIZE);
 				game->images->exit_image->instances->enabled = false;
 			}
 			x++;
@@ -57,54 +60,59 @@ void	ft_render_floor(t_game *game, t_images *image)
 	}
 }
 
-void	ft_render_map(t_game *game, t_images *img)
+void	ft_place_random_anim(t_game *game, t_images *img, int rows, int cols)
 {
-	int	x;
-	int	y;
-	int	random_y;
 	int	random_x;
-	int	rows;
-	int	cols;
+	int	random_y;
 
-	ft_render_floor(game, img);
-	y = -1;
-	cols = ft_strlen(game->map[0]);
-	rows = ft_array_count(game->map);
-	srand(time(NULL));
-	if (ft_has_empty_spaces(game->map) && cols >= 10 && rows >= 10)
+	random_x = 0;
+	random_y = 0;
+	while (game->map[random_y][random_x] != '0')
 	{
 		random_y = rand() % rows;
 		random_x = rand() % cols;
-		while (game->map[random_y][random_x] != '0')
-		{
-			random_y = rand() % rows;
-			random_x = rand() % cols;
-		}
-		mlx_image_to_window(game->mlx, img->enemy_image, random_x * TILE_SIZE, random_y * TILE_SIZE);
-		game->enemy_count++;
-		random_y = rand() % rows;
-		random_x = rand() % cols;
-		while (game->map[random_y][random_x] != '0'
-		&& random_x == game->images->enemy_image->instances->x
-		&& random_y == game->images->enemy_image->instances->y)
-		{
-			random_y = rand() % rows;
-			random_x = rand() % cols;
-		}
-		mlx_image_to_window(game->mlx, img->animation1_image, random_x * TILE_SIZE, random_y * TILE_SIZE);
-		mlx_image_to_window(game->mlx, img->animation2_image, random_x * TILE_SIZE, random_y * TILE_SIZE);
-		mlx_image_to_window(game->mlx, img->animation3_image, random_x * TILE_SIZE, random_y * TILE_SIZE);
 	}
+	mlx_image_to_window(game->mlx, img->animation1_image, \
+	random_x * TILE_SIZE, random_y * TILE_SIZE);
+	mlx_image_to_window(game->mlx, img->animation2_image, -\
+	random_x * TILE_SIZE, random_y * TILE_SIZE);
+	mlx_image_to_window(game->mlx, img->animation3_image, \
+	random_x * TILE_SIZE, random_y * TILE_SIZE);
+}
+
+void	ft_render_obj(t_game *game, t_images *img)
+{
+	int	x;
+	int	y;
+
+	y = -1;
 	while (game->map[++y])
 	{
 		x = -1;
 		while (game->map[y][++x])
 		{
 			if (game->map[y][x] == 'P')
-				mlx_image_to_window(game->mlx, img->player_image, x * TILE_SIZE, y * TILE_SIZE);
+				mlx_image_to_window(game->mlx, img->player_image, x * \
+				TILE_SIZE, y * TILE_SIZE);
 			else if (game->map[y][x] == 'C')
-				mlx_image_to_window(game->mlx, img->coin_image, x * TILE_SIZE, y * TILE_SIZE);
+				mlx_image_to_window(game->mlx, img->coin_image, x * \
+				TILE_SIZE, y * TILE_SIZE);
 		}
 	}
 }
 
+void	ft_render_map(t_game *game, t_images *img)
+{
+	int	rows;
+	int	cols;
+
+	ft_render_floor(game, img);
+	cols = ft_strlen(game->map[0]);
+	rows = ft_array_count(game->map);
+	ft_render_obj(game, img);
+	if (ft_has_empty_spaces(game->map) && rows >= 10 && cols >= 10)
+	{
+		ft_place_random_enemy(game, img, rows, cols);
+		ft_place_random_anim(game, img, rows, cols);
+	}
+}

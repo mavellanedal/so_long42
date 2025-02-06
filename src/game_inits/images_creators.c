@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   images_renders.c                                   :+:      :+:    :+:   */
+/*   images_creators.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 18:06:09 by mavellan          #+#    #+#             */
-/*   Updated: 2025/02/03 13:04:14 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:32:53 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,26 @@ void	ft_create_textures(t_game *game)
 void	ft_create_imgs(t_game *game)
 {
 	game->images = ft_calloc(1, sizeof(t_images));
-	game->images->floor_image = mlx_texture_to_image(game->mlx, game->textures->floor_texture);
-	game->images->coin_image = mlx_texture_to_image(game->mlx, game->textures->coin_texture);
-	game->images->wall_image = mlx_texture_to_image(game->mlx, game->textures->wall_texture);
-	game->images->player_image = mlx_texture_to_image(game->mlx, game->textures->player_texture);
-	game->images->enemy_image = mlx_texture_to_image(game->mlx, game->textures->enemy_texture);
-	game->images->exit_image = mlx_texture_to_image(game->mlx, game->textures->exit_texture);
-	game->images->menu_image = mlx_texture_to_image(game->mlx, game->textures->menu_texture);
-	game->images->animation1_image = mlx_texture_to_image(game->mlx, game->textures->animation1_texture);
-	game->images->animation2_image = mlx_texture_to_image(game->mlx, game->textures->animation2_texture);
-	game->images->animation3_image = mlx_texture_to_image(game->mlx, game->textures->animation3_texture);
+	game->images->floor_image = mlx_texture_to_image(game->mlx, \
+	game->textures->floor_texture);
+	game->images->coin_image = mlx_texture_to_image(game->mlx, \
+	game->textures->coin_texture);
+	game->images->wall_image = mlx_texture_to_image(game->mlx, \
+	game->textures->wall_texture);
+	game->images->player_image = mlx_texture_to_image(game->mlx, \
+	game->textures->player_texture);
+	game->images->enemy_image = mlx_texture_to_image(game->mlx, \
+	game->textures->enemy_texture);
+	game->images->exit_image = mlx_texture_to_image(game->mlx, \
+	game->textures->exit_texture);
+	game->images->menu_image = mlx_texture_to_image(game->mlx, \
+	game->textures->menu_texture);
+	game->images->animation1_image = mlx_texture_to_image(game->mlx, \
+	game->textures->animation1_texture);
+	game->images->animation2_image = mlx_texture_to_image(game->mlx, \
+	game->textures->animation2_texture);
+	game->images->animation3_image = mlx_texture_to_image(game->mlx, \
+	game->textures->animation3_texture);
 	ft_delete_textures(game);
 }
 

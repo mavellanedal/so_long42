@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:10:23 by mavellan          #+#    #+#             */
-/*   Updated: 2025/02/04 09:47:13 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:36:27 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	ft_check_if_close(char **map, int rows, int cols)
 
 	if (rows < 1 || cols < 1 || map[0] == NULL)
 		return (1);
-	if (ft_check_row_wall(map[0], cols) || ft_check_row_wall(map[rows - 1], cols))
+	if (ft_check_row_wall(map[0], cols) || \
+	ft_check_row_wall(map[rows - 1], cols))
 		return (1);
 	i = 0;
 	while (i < rows)
@@ -71,11 +72,9 @@ int	ft_empty_checker(char **map, int rows)
 	i = 0;
 	while (i < rows)
 	{
-		if (map[i] == NULL || map[i][0] == '\0' || map[i][0] == '\n' || map[i][0] == '\r')
-		{
-			ft_printf("Invalid line\n");
+		if (map[i] == NULL || map[i][0] == '\0' || map[i][0] == '\n' \
+		|| map[i][0] == '\r')
 			return (1);
-		}
 		i++;
 	}
 	return (0);
@@ -87,21 +86,21 @@ int	ft_checker(char **map, int rows, int cols)
 
 	checker = ft_empty_checker(map, rows);
 	if (checker)
-		return (ft_error3(34));
+		return (ft_error(8));
 	checker += is_rectangular(map, rows);
 	if (checker)
-		return (ft_error(5));
+		return (ft_error(3));
 	checker += ft_check_if_close(map, rows, cols);
 	if (checker)
-		return (ft_error(6));
+		return (ft_error(4));
 	checker += ft_check_chars(map);
 	if (checker)
-		return (ft_error(8));
+		return (ft_error(6));
 	checker += ft_check_entities(map);
 	if (checker)
-		return (ft_error(4));
+		return (ft_error(2));
 	checker += ft_check_path(map, rows, cols);
 	if (checker)
-		return (ft_error(11));
+		return (ft_error(7));
 	return (checker);
 }

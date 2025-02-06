@@ -6,7 +6,7 @@
 /*   By: mavellan <mavellan@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:15:03 by mavellan          #+#    #+#             */
-/*   Updated: 2025/02/04 10:25:37 by mavellan         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:40:20 by mavellan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,40 +24,16 @@
 
 //Error Messages
 # define ARGV_MISSING "ERROR\nYou must provide the map as an argument.\n"
-# define MLX_INIT "ERROR\nFailed to initialize MLX.\n"
-# define READING_MAP "ERROR\nError reading the map.\n"
 # define INVALID_CHARS "ERROR\nInvalid characters in the map.\n"
 # define NOT_RECTANGUALR "ERROR\nThe map must be rectangular.\n"
 # define NOT_CLOSED "ERROR\nThe map must be closed.\n"
-# define NO_CORRECT_CONTENTS "ERROR\nThe map have error contents.\n"
 # define FILE_EXTENSION "ERROR\nThe map file extension must be .ber.\n"
+# define NO_CORRECT_CONTENTS "ERROR\nThe map have error contents.\n"
 # define NO_ACCESIBLE "ERROR\nThe exit is not accessible.\n"
-# define INIT_MLX "ERROR\nError initializing MLX.\n"
-# define WALL_TEXTURE_LOAD "ERROR\nFailed to load the wall texture.\n"
-# define CREATE_WALL_IMG "ERROR\nFailed to create the wall image.\n"
-# define DRAW_WALL "ERROR\nFailed to draw the wall image.\n"
-# define FLOOR_TEXTURE_LOAD "ERROR\nFailed to load the floor texture.\n"
-# define CREATE_FLOOR_IMG "ERROR\nFailed to create the floor image.\n"
-# define DRAW_FLOOR "ERROR\nFailed to draw the floor image.\n"
-# define COIN_TEXTURE_LOAD "ERROR\nFailed to load the coin texture.\n"
-# define CREATE_COIN_IMG "ERROR\nFailed to create the coin image.\n"
-# define DRAW_COIN "ERROR\nFailed to draw the coin image.\n"
-# define PLAYER_TEXTURE_LOAD "ERROR\nFailed to load the player texture.\n"
-# define CREATE_PLAYER_IMG "ERROR\nFailed to create the player image.\n"
-# define DRAW_PLAYER "ERROR\nFailed to draw the player image.\n"
-# define EXIT_TEXTURE_LOAD "ERROR\nFailed to load the exit texture.\n"
-# define CREATE_EXIT_IMG "ERROR\nFailed to create the exit image.\n"
-# define DRAW_EXIT "ERROR\nFailed to draw the exit image.\n"
-# define MENU_TEXTURE_LOAD "ERROR\nFailed to load the menu texture.\n"
-# define CREATE_MENU_IMG "ERROR\nFailed to create the menu image.\n"
-# define DRAW_MENU "ERROR\nFailed to draw the menu image.\n"
-# define ENEMY_TEXTURE_LOAD "ERROR\nFailed to load the enemy texture.\n"
-# define CREATE_ENEMY_IMG "ERROR\nFailed to create the enemy image.\n"
-# define DRAW_ENEMY "ERROR\nFailed to draw the enemy image.\n"
-# define STAR_TEXTURE_LOAD "ERROR\nFailed to load the star texture.\n"
-# define CREATE_STAR_IMG "ERROR\nFailed to create the star image.\n"
-# define DRAW_STAR "ERROR\nFailed to draw the star image.\n"
 # define FILE_EMPTY "ERROR\nThe file is empty.\n"
+# define STARTING_GAME "ERROR\nAl inicar el juego.\n"
+# define MAP_ALLOC "ERROR\nThe map alloc has failed.\n"
+# define BUILDING_MAP "ERROR\nWhile building map\n"
 
 // Strucutres
 typedef struct s_pos
@@ -192,6 +168,8 @@ void			ft_collector(t_game *game);
 char			ft_detect_move(t_game *game);
 void			move_enemy(t_game *game);
 void			ft_enemy_detection(t_game *game);
+void			ft_place_random_enemy(t_game *game, t_images *img, \
+int rows, int cols);
 
 //ft_error.c
 int				ft_error(int i);
@@ -208,7 +186,13 @@ void			move_right(t_game *game);
 void			handle_player_move(mlx_key_data_t keydata, void *param);
 
 //renders.c
+int				ft_has_empty_spaces(char **map);
 void			ft_render_map(t_game *game, t_images *img);
+void			ft_render_obj(t_game *game, t_images *img);
+void			ft_place_random_anim(t_game *game, t_images *img, \
+int rows, int cols);
+void			ft_place_random_enemy(t_game *game, t_images *img, \
+int rows, int cols);
 void			ft_render_floor(t_game *game, t_images *image);
 
 #endif
